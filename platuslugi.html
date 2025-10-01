@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Городская поликлиника №26 — Платные услуги</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #b2ebf2);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px;
+    }
+
+    .services-page {
+      width: 1000px;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      padding: 40px;
+    }
+
+    .services-page h1 {
+      color: #00796b;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    .services-page p {
+      color: #333;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .card {
+      background-color: #e0f2f1;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: #004d40;
+    }
+
+    .card p {
+      margin: 8px 0;
+      color: #333;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #00796b;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 10px 20px;
+      background-color: #00796b;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back-button:hover {
+      background-color: #004d40;
+    }
+  </style>
+</head>
+<body>
+  <div class="services-page">
+    <h1>Платные медицинские услуги</h1>
+
+    <p>Поликлиника №26 предлагает ряд платных медицинских услуг, доступных без направления. Все процедуры проводятся квалифицированными специалистами с использованием современного оборудования.</p>
+
+    <div class="cards">
+      <div class="card">
+        <h3>УЗИ органов брюшной полости</h3>
+        <p>Диагностика состояния печени, почек, поджелудочной железы и других органов.</p>
+        <p class="price">Цена: 35 BYN</p>
+      </div>
+      <div class="card">
+        <h3>Консультация кардиолога</h3>
+        <p>Проверка сердечного ритма, ЭКГ, рекомендации по лечению и профилактике.</p>
+        <p class="price">Цена: 40 BYN</p>
+      </div>
+      <div class="card">
+        <h3>Массаж лечебный (1 сеанс)</h3>
+        <p>Снятие мышечного напряжения, улучшение кровообращения, восстановление после травм.</p>
+        <p class="price">Цена: 25 BYN</p>
+      </div>
+      <div class="card">
+        <h3>Анализ крови (общий)</h3>
+        <p>Быстрая диагностика общего состояния организма, выявление воспалений и нарушений.</p>
+        <p class="price">Цена: 15 BYN</p>
+      </div>
+      <div class="card">
+        <h3>Справка для ГАИ</h3>
+        <p>Медицинское освидетельствование для получения водительского удостоверения.</p>
+        <p class="price">Цена: 30 BYN</p>
+      </div>
+      <div class="card">
+        <h3>Флюорография</h3>
+        <p>Обследование органов грудной клетки для выявления патологий дыхательной системы.</p>
+        <p class="price">Цена: 20 BYN</p>
+      </div>
+    </div>
+
+    <a href="page1.html" class="back-button">← Вернуться на главную</a>
+  </div>
+</body>
+</html>

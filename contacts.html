@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Городская поликлиника №26 — Контакты</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #b2ebf2);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px;
+    }
+
+    .contacts-page {
+      width: 1000px;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      padding: 40px;
+    }
+
+    .contacts-page h1 {
+      color: #00796b;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    .contacts-page p {
+      color: #333;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .info-block {
+      background-color: #e0f2f1;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .info-block strong {
+      color: #004d40;
+    }
+
+    .map iframe {
+      width: 100%;
+      height: 300px;
+      border: 0;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form input,
+    .form textarea {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+      width: 100%;
+      font-family: inherit;
+    }
+
+    .form textarea {
+      grid-column: span 2;
+      resize: vertical;
+      height: 120px;
+    }
+
+    .submit-button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .submit-button:hover {
+      background-color: #004d40;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 10px 20px;
+      background-color: #00796b;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back-button:hover {
+      background-color: #004d40;
+    }
+  </style>
+</head>
+<body>
+  <div class="contacts-page">
+    <h1>Контактная информация</h1>
+
+    <div class="info-block">
+      <p><strong>Адрес:</strong> г. Минск, ул. Колесникова 3</p>
+      <p><strong>Телефон справочной:</strong> +375-25-751-77-10</p>
+      <p><strong>Телефон регистратуры:</strong> +375-44-512-22-79</p>
+      <p><strong>Email:</strong> info26@gmail.com</p>
+      <p><strong>Часы работы:</strong> Пн–Пт: 08:00–20:00, Сб: 09:00–15:00, Вс: выходной</p>
+    </div>
+
+    <div class="map">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2430.123456789!2d27.512345!3d53.912345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbcf123456789%3A0xabcdef123456789!2sул.%20Колесникова%203%2C%20Минск!5e0!3m2!1sru!2sby!4v1699999999999"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+    <h2>Обратная связь</h2>
+    <form class="form">
+      <input type="text" placeholder="Ваше имя">
+      <input type="email" placeholder="Email">
+      <textarea placeholder="Ваше сообщение"></textarea>
+      <button type="submit" class="submit-button">Отправить</button>
+    </form>
+
+    <a href="main.html" class="back-button">← Вернуться на главную</a>
+  </div>
+</body>
+</html>

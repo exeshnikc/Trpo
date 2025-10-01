@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Городская поликлиника №26 — Деятельность</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #b2ebf2);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px;
+    }
+
+    .activity-page {
+      width: 1000px;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      padding: 40px;
+    }
+
+    .activity-page h1 {
+      color: #00796b;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    .activity-page h2 {
+      color: #00796b;
+      margin-top: 30px;
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+
+    .activity-page p {
+      color: #333;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background-color: #e0f2f1;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: #004d40;
+    }
+
+    .card p {
+      margin-bottom: 0;
+      color: #333;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 10px 20px;
+      background-color: #00796b;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back-button:hover {
+      background-color: #004d40;
+    }
+  </style>
+</head>
+<body>
+  <div class="activity-page">
+    <h1>Направления деятельности</h1>
+
+    <p>Городская поликлиника №26 предоставляет широкий спектр медицинских услуг, направленных на профилактику, диагностику и лечение заболеваний. Мы стремимся обеспечить каждому пациенту квалифицированную помощь в комфортных условиях.</p>
+
+    <h2>Основные направления</h2>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Терапевтическая помощь</h3>
+        <p>Приём взрослых пациентов, диагностика и лечение распространённых заболеваний, диспансерное наблюдение.</p>
+      </div>
+      <div class="card">
+        <h3>Педиатрия</h3>
+        <p>Медицинское обслуживание детей, вакцинация, профилактические осмотры, консультации специалистов.</p>
+      </div>
+      <div class="card">
+        <h3>Кардиология</h3>
+        <p>Диагностика сердечно-сосудистых заболеваний, ЭКГ, консультации кардиолога, контроль давления.</p>
+      </div>
+      <div class="card">
+        <h3>Хирургия</h3>
+        <p>Мелкие хирургические вмешательства, перевязки, удаление новообразований, консультации хирурга.</p>
+      </div>
+      <div class="card">
+        <h3>Лабораторные исследования</h3>
+        <p>Анализы крови, мочи, биохимия, ПЦР, подготовка к госпитализации и диспансеризации.</p>
+      </div>
+      <div class="card">
+        <h3>Профилактика и вакцинация</h3>
+        <p>Проведение прививок, профилактические мероприятия, информационные кампании по здоровью.</p>
+      </div>
+    </div>
+
+    <a href="main.html" class="back-button">← Вернуться на главную</a>
+  </div>
+</body>
+</html>

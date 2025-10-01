@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Городская поликлиника №26</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #b2ebf2);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px;
+    }
+
+    .page {
+      display: flex;
+      flex-direction: column;
+      width: 1200px;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      background-color: #00796b;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    .login-button {
+      background-color: white;
+      color: #00796b;
+      padding: 8px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .login-button:hover {
+      background-color: #e0f2f1;
+    }
+
+    .content {
+      display: flex;
+      padding: 30px;
+      gap: 30px;
+    }
+
+    .photo {
+      width: 400px;
+      height: 250px;
+      border-radius: 8px;
+      background-image: url('фотка.png');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .info {
+      flex-grow: 1;
+    }
+
+    .info h2 {
+      color: #00796b;
+      margin-bottom: 10px;
+    }
+
+    .services ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .services li {
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }
+
+    .section {
+      padding: 30px;
+      border-top: 1px solid #eee;
+    }
+
+    .section h3 {
+      color: #00796b;
+      margin-bottom: 10px;
+    }
+
+    .section p {
+      margin: 8px 0;
+      color: #333;
+    }
+
+    .news-slider {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      padding: 10px 0;
+      scroll-snap-type: x mandatory;
+    }
+
+    .news-card {
+      flex: 0 0 250px;
+      background-color: #e0f2f1;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      scroll-snap-align: start;
+    }
+
+    .news-card h4 {
+      margin: 0 0 10px;
+      color: #00796b;
+      font-size: 16px;
+    }
+
+    .news-card p {
+      margin: 0;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .map iframe {
+      width: 100%;
+      height: 300px;
+      border: 0;
+      border-radius: 8px;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      background-color: #e0f2f1;
+      padding: 30px;
+      font-size: 14px;
+      color: #004d40;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="nav">
+        <div>Главная</div>
+        <div>Об учреждении</div>
+        <div>Расписание</div>
+        <div>Деятельность</div>
+        <div>Платные услуги</div>
+        <div>Контакты</div>
+      </div>
+      <a href="page1.html" class="login-button">Вход</a>
+    </div>
+
+    <div class="content">
+      <div class="photo"></div>
+      <div class="info">
+        <h2>Информация для пациентов</h2>
+        <div class="services">
+          <ul>
+            <li>Заказ талона онлайн</li>
+            <li>Вызов врача на дом</li>
+            <li>Администрация</li>
+            <li>Список врачей</li>
+            <li>Список свободных приёмов</li>
+            <li>Электронная карта пациента</li>
+            <li>Запись на вакцинацию</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Новости учреждения</h3>
+      <div class="news-slider">
+        <div class="news-card">
+          <h4>01 октября 2025</h4>
+          <p>Открыт новый кабинет кардиолога.</p>
+        </div>
+        <div class="news-card">
+          <h4>05 октября 2025</h4>
+          <p>Начинается вакцинация против гриппа.</p>
+        </div>
+        <div class="news-card">
+          <h4>07 октября 2025</h4>
+          <p>Изменено расписание приёма терапевтов.</p>
+        </div>
+        <div class="news-card">
+          <h4>10 октября 2025</h4>
+          <p>Приём нового эндокринолога.</p>
+        </div>
+        <div class="news-card">
+          <h4>15 октября 2025</h4>
+          <p>Неделя профилактики диабета — бесплатные консультации.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Часы работы</h3>
+      <p>Понедельник – Пятница: 08:00 – 20:00</p>
+      <p>Суббота: 09:00 – 15:00</p>
+      <p>Воскресенье: выходной</p>
+    </div>
+
+    <div class="section">
+      <h3>Как нас найти</h3>
+      <div class="map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2430.123456789!2d27.512345!3d53.912345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbcf123456789%3A0xabcdef123456789!2sул.%20Колесникова%203%2C%20Минск!5e0!3m2!1sru!2sby!4v1699999999999"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>
+        <strong>Справочная:</strong><br>
+        запись к врачу: +375-25-751-77-10<br>
+        регистратура: +375-44-512-22-79
+      </div>
+      <div>
+        <strong>Адрес:</strong><br>
+        г. Минск, ул. Колесникова 3<br>
+        почта: info26@gmail.com
+      </div>
+    </div>
+  </div>
+</body>
+</html>
