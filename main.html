@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Городская поликлиника №26</title>
-  <link rel="stylesheet" href="style.css">
   <style>
+    /* Все предыдущие стили остаются без изменений */
     body {
       margin: 0;
       font-family: "Segoe UI", sans-serif;
@@ -42,6 +42,16 @@
       gap: 30px;
     }
 
+    .nav a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav a:hover {
+      color: #b2dfdb;
+    }
+
     .login-button {
       background-color: white;
       color: #00796b;
@@ -66,9 +76,12 @@
       width: 400px;
       height: 250px;
       border-radius: 8px;
-      background-image: url('фотка.png');
-      background-size: cover;
-      background-position: center;
+      background-color: #e0f2f1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #00796b;
+      font-weight: bold;
     }
 
     .info {
@@ -89,6 +102,11 @@
       padding: 8px 0;
       border-bottom: 1px solid #eee;
       cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .services li:hover {
+      color: #00796b;
     }
 
     .section {
@@ -98,7 +116,7 @@
 
     .section h3 {
       color: #00796b;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
 
     .section p {
@@ -106,33 +124,75 @@
       color: #333;
     }
 
-    .news-slider {
-      display: flex;
-      overflow-x: auto;
-      gap: 20px;
-      padding: 10px 0;
-      scroll-snap-type: x mandatory;
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 15px;
+      margin-top: 15px;
     }
 
     .news-card {
-      flex: 0 0 250px;
-      background-color: #e0f2f1;
+      background: white;
+      border: 2px solid #00796b;
       border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
-      scroll-snap-align: start;
+      padding: 15px;
+      text-align: center;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
     }
 
-    .news-card h4 {
-      margin: 0 0 10px;
-      color: #00796b;
-      font-size: 16px;
+    .news-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,121,107,0.3);
     }
 
-    .news-card p {
-      margin: 0;
-      color: #333;
+    .news-date {
       font-size: 14px;
+      font-weight: bold;
+      color: #00796b;
+      margin-bottom: 8px;
+    }
+
+    .news-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      line-height: 1.3;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+    }
+
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #00796b;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 10px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .debug-info {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      border-radius: 4px;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 12px;
+      color: #856404;
     }
 
     .map iframe {
@@ -156,56 +216,42 @@
   <div class="page">
     <div class="header">
       <div class="nav">
-        <div>Главная</div>
-        <div>Об учреждении</div>
-        <div>Расписание</div>
-        <div>Деятельность</div>
-        <div>Платные услуги</div>
-        <div>Контакты</div>
+        <a href="main.html">Главная</a>
+        <a href="information.html">Об учреждении</a>
+        <a href="raspisanie.html">Расписание</a>
+        <a href="doing.html">Деятельность</a>
+        <a href="platuslugi.html">Платные услуги</a>
+        <a href="contacts.html">Контакты</a>
       </div>
       <a href="page1.html" class="login-button">Вход</a>
     </div>
 
     <div class="content">
-      <div class="photo"></div>
+      <div class="photo">Изображение поликлиники</div>
       <div class="info">
         <h2>Информация для пациентов</h2>
         <div class="services">
           <ul>
-            <li>Заказ талона онлайн</li>
-            <li>Вызов врача на дом</li>
-            <li>Администрация</li>
-            <li>Список врачей</li>
-            <li>Список свободных приёмов</li>
-            <li>Электронная карта пациента</li>
-            <li>Запись на вакцинацию</li>
+            <li onclick="showService('online')">Заказ талона онлайн</li>
+            <li onclick="showService('home')">Вызов врача на дом</li>
+            <li onclick="showService('admin')">Администрация</li>
+            <li onclick="showService('doctors')">Список врачей</li>
+            <li onclick="showService('appointments')">Список свободных приёмов</li>
+            <li onclick="showService('card')">Электронная карта пациента</li>
+            <li onclick="showService('vaccine')">Запись на вакцинацию</li>
           </ul>
         </div>
       </div>
     </div>
 
+    <!-- Секция новостей -->
     <div class="section">
       <h3>Новости учреждения</h3>
-      <div class="news-slider">
-        <div class="news-card">
-          <h4>01 октября 2025</h4>
-          <p>Открыт новый кабинет кардиолога.</p>
-        </div>
-        <div class="news-card">
-          <h4>05 октября 2025</h4>
-          <p>Начинается вакцинация против гриппа.</p>
-        </div>
-        <div class="news-card">
-          <h4>07 октября 2025</h4>
-          <p>Изменено расписание приёма терапевтов.</p>
-        </div>
-        <div class="news-card">
-          <h4>10 октября 2025</h4>
-          <p>Приём нового эндокринолога.</p>
-        </div>
-        <div class="news-card">
-          <h4>15 октября 2025</h4>
-          <p>Неделя профилактики диабета — бесплатные консультации.</p>
+      <div id="debug-info" class="debug-info" style="display: none;"></div>
+      <div id="news-container">
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Загрузка новостей из базы данных...</p>
         </div>
       </div>
     </div>
@@ -221,7 +267,7 @@
       <h3>Как нас найти</h3>
       <div class="map">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2430.123456789!2d27.512345!3d53.912345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbcf123456789%3A0xabcdef123456789!2sул.%20Колесникова%203%2C%20Минск!5e0!3m2!1sru!2sby!4v1699999999999"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2430.123456789!2d27.512345!3d53.912345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbcf123456789%3A0xabcdef123456789!2s%D1%83%D0%BB.%20%D0%9A%D0%BE%D0%BB%D0%B5%D1%81%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2%D0%B0%203%2C%20%D0%9C%D0%B8%D0%BD%D1%81%D0%BA!5e0!3m2!1sru!2sby!4v1699999999999"
           allowfullscreen=""
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade">
@@ -242,5 +288,147 @@
       </div>
     </div>
   </div>
+
+  <script>
+    // Функция для отображения отладочной информации
+    function showDebugInfo(message, type = 'info') {
+      const debugDiv = document.getElementById('debug-info');
+      debugDiv.innerHTML = `<strong>${type.toUpperCase()}:</strong> ${message}`;
+      debugDiv.style.display = 'block';
+      debugDiv.style.background = type === 'error' ? '#f8d7da' : '#fff3cd';
+      debugDiv.style.borderColor = type === 'error' ? '#f5c6cb' : '#ffeaa7';
+      debugDiv.style.color = type === 'error' ? '#721c24' : '#856404';
+    }
+
+    // Функция для проверки подключения к API
+    async function testApiConnection() {
+      try {
+        showDebugInfo('Проверяем подключение к серверу...');
+        const response = await fetch('/api/test-news');
+        const data = await response.json();
+        
+        if (data.success) {
+          showDebugInfo(`✅ Подключение к БД успешно. Найдено ${data.total} новостей`, 'success');
+          console.log('📊 Новости из БД:', data.news);
+          return true;
+        } else {
+          showDebugInfo(`❌ Ошибка БД: ${data.error}`, 'error');
+          return false;
+        }
+      } catch (error) {
+        showDebugInfo(`❌ Ошибка подключения: ${error.message}`, 'error');
+        return false;
+      }
+    }
+
+    // Функция для загрузки новостей из БД
+    async function loadNewsFromDB() {
+      showDebugInfo('Загружаем новости из базы данных...');
+      
+      try {
+        console.log('🔄 Загружаем новости из базы данных...');
+        const response = await fetch('/api/news');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('📥 Ответ от API:', data);
+        
+        if (data.success && data.news && data.news.length > 0) {
+          showDebugInfo(`✅ Загружено ${data.news.length} новостей из БД`, 'success');
+          console.log(`✅ Загружено ${data.news.length} новостей из БД:`, data.news);
+          displayNewsFromDB(data.news);
+        } else {
+          throw new Error(data.error || 'Нет новостей в базе данных');
+        }
+      } catch (error) {
+        console.error('❌ Ошибка при загрузке новостей из БД:', error);
+        showDebugInfo(`❌ Ошибка: ${error.message}`, 'error');
+        showBackupNews();
+      }
+    }
+
+    // Функция для отображения новостей из БД в квадратиках
+    function displayNewsFromDB(news) {
+      const container = document.getElementById('news-container');
+      
+      container.innerHTML = `
+        <div class="news-grid">
+          ${news.map(item => `
+            <div class="news-card" onclick="showNewsDetail(${item.id})">
+              <div class="news-date">${escapeHtml(item.date)}</div>
+              <div class="news-title">${escapeHtml(item.short_description || item.title)}</div>
+              <small style="color: #666; font-size: 10px;">ID: ${item.id}</small>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    // Функция для показа резервных новостей
+    function showBackupNews() {
+      const container = document.getElementById('news-container');
+      
+      const backupNews = [
+        { id: 1, date: '01 октября 2025', title: 'Открыт новый кабинет кардиолога', short_description: 'Открыт новый кабинет кардиолога.' },
+        { id: 2, date: '05 октября 2025', title: 'Начинается вакцинация против гриппа', short_description: 'Начинается вакцинация против гриппа.' },
+        { id: 3, date: '07 октября 2025', title: 'Изменено расписание приёма терапевтов', short_description: 'Изменено расписание приёма терапевтов.' },
+        { id: 4, date: '10 октября 2025', title: 'Приём нового эндокринолога', short_description: 'Приём нового эндокринолога.' },
+        { id: 5, date: '15 октября 2025', title: 'Неделя диабетической консультации', short_description: 'Неделя диабетической консультации.' }
+      ];
+      
+      showDebugInfo('⚠️ Используются резервные новости (БД недоступна)', 'warning');
+      displayNewsFromDB(backupNews);
+    }
+
+    // Функция для показа деталей новости
+    function showNewsDetail(newsId) {
+      alert(`Новость ID: ${newsId}\n\nДетальная информация временно недоступна.`);
+    }
+
+    // Функция для экранирования HTML
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Функция для обработки кликов по сервисам
+    function showService(service) {
+      const services = {
+        'online': 'Заказ талона онлайн - функция в разработке',
+        'home': 'Вызов врача на дом - функция в разработке',
+        'admin': 'Администрация - функция в разработке',
+        'doctors': 'Список врачей - функция в разработке',
+        'appointments': 'Список свободных приёмов - функция в разработке',
+        'card': 'Электронная карта пациента - функция в разработке',
+        'vaccine': 'Запись на вакцинацию - функция в разработке'
+      };
+      
+      alert(services[service] || 'Сервис временно недоступен');
+    }
+
+    // Основная функция инициализации
+    async function initializePage() {
+      console.log('🚀 Инициализация страницы...');
+      
+      // Сначала проверяем подключение к API
+      const isConnected = await testApiConnection();
+      
+      if (isConnected) {
+        // Если подключение есть, загружаем новости из БД
+        await loadNewsFromDB();
+      } else {
+        // Если нет подключения, показываем резервные новости
+        showBackupNews();
+      }
+    }
+
+    // Загружаем новости при загрузке страницы
+    document.addEventListener('DOMContentLoaded', initializePage);
+  </script>
 </body>
 </html>

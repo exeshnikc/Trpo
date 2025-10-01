@@ -2,94 +2,288 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Городская поликлиника №26 — Вход</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Поликлиника - Вход</title>
   <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #00796b, #004d40);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     .login-wrapper {
-      background-color: white;
+      background: white;
       padding: 40px;
       border-radius: 12px;
       box-shadow: 0 0 20px rgba(0,0,0,0.1);
       width: 400px;
       text-align: center;
     }
-
     .tabs {
       display: flex;
       justify-content: space-around;
       margin-bottom: 20px;
     }
-
     .tab {
-      padding: 8px 16px;
+      padding: 10px 20px;
       border-radius: 20px;
-      background-color: #b2dfdb;
+      background: #b2dfdb;
       cursor: pointer;
+      transition: all 0.3s;
     }
-
     .tab.active {
-      background-color: #00796b;
+      background: #00796b;
       color: white;
     }
-
     h2 {
       margin-bottom: 20px;
       color: #00796b;
     }
-
-    input[type="text"],
-    input[type="password"] {
+    input {
       width: 100%;
       padding: 12px;
-      margin: 10px 0;
+      margin: 8px 0;
       border: 1px solid #ccc;
       border-radius: 8px;
       box-sizing: border-box;
+      font-size: 16px;
     }
-
+    .form-section {
+      display: none;
+    }
+    .form-section.active {
+      display: block;
+    }
     .login-buttons {
       display: flex;
       flex-direction: column;
       gap: 10px;
       margin-top: 20px;
     }
-
-    .login-buttons button {
+    button {
       padding: 12px;
       border: none;
       border-radius: 8px;
-      background-color: #00796b;
+      background: #00796b;
       color: white;
       font-size: 16px;
       cursor: pointer;
+      transition: background 0.3s;
     }
-
-    .login-buttons button:hover {
-      background-color: #004d40;
+    button:hover {
+      background: #004d40;
     }
-
-    .login-buttons .register {
-      background-color: #80cbc4;
+    button.register {
+      background: #80cbc4;
     }
-
-    .login-buttons .register:hover {
-      background-color: #4db6ac;
+    button.register:hover {
+      background: #4db6ac;
+    }
+    .message {
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 5px;
+      display: none;
+      font-weight: bold;
+    }
+    .success { 
+      background: #d4edda; 
+      color: #155724; 
+      border: 1px solid #c3e6cb;
+    }
+    .error { 
+      background: #f8d7da; 
+      color: #721c24; 
+      border: 1px solid #f5c6cb;
+    }
+    .back-button {
+      background: #f8f9fa;
+      color: #6c757d;
+      border: 1px solid #dee2e6;
+    }
+    .back-button:hover {
+      background: #e9ecef;
     }
   </style>
 </head>
 <body>
   <div class="login-wrapper">
     <div class="tabs">
-      <div class="tab active">Пользователь</div>
-      <div class="tab">Администратор</div>
+      <div class="tab active" onclick="switchRole('patient')">Пациент</div>
+      <div class="tab" onclick="switchRole('admin')">Администратор</div>
     </div>
-    <h2>Вход в систему</h2>
-    <input type="text" placeholder="Логин">
-    <input type="password" placeholder="Пароль">
-    <div class="login-buttons">
-      <button>Войти</button>
-      <button class="register">Регистрация</button>
+    
+    <h2 id="form-title">Вход в систему</h2>
+    
+    <div class="message" id="message"></div>
+    
+    <!-- Форма входа -->
+    <div class="form-section active" id="login-section">
+      <input type="text" id="login" placeholder="Логин" required>
+      <input type="password" id="password" placeholder="Пароль" required>
+      <div class="login-buttons">
+        <button onclick="handleLogin()">Войти</button>
+        <button class="register" onclick="showRegister()">Регистрация</button>
+        <button class="back-button" onclick="goToMain()">На главную</button>
+      </div>
+    </div>
+    
+    <!-- Форма регистрации -->
+    <div class="form-section" id="register-section">
+      <input type="text" id="reg-login" placeholder="Логин" required>
+      <input type="password" id="reg-password" placeholder="Пароль" required>
+      <input type="text" id="first-name" placeholder="Имя" required>
+      <input type="text" id="last-name" placeholder="Фамилия" required>
+      <input type="email" id="email" placeholder="Email">
+      <input type="tel" id="phone" placeholder="Телефон">
+      <div class="login-buttons">
+        <button onclick="handleRegister()">Зарегистрироваться</button>
+        <button class="register" onclick="showLogin()">Назад к входу</button>
+      </div>
     </div>
   </div>
+
+  <script>
+    let currentRole = 'patient';
+    
+    function switchRole(role) {
+      currentRole = role;
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+    
+    function showRegister() {
+      document.getElementById('login-section').classList.remove('active');
+      document.getElementById('register-section').classList.add('active');
+      document.getElementById('form-title').textContent = 'Регистрация';
+      clearMessage();
+    }
+    
+    function showLogin() {
+      document.getElementById('register-section').classList.remove('active');
+      document.getElementById('login-section').classList.add('active');
+      document.getElementById('form-title').textContent = 'Вход в систему';
+      clearMessage();
+    }
+    
+    function goToMain() {
+      window.location.href = '/';
+    }
+    
+    function showMessage(text, isError = false) {
+      const messageEl = document.getElementById('message');
+      messageEl.textContent = text;
+      messageEl.className = `message ${isError ? 'error' : 'success'}`;
+      messageEl.style.display = 'block';
+    }
+    
+    function clearMessage() {
+      document.getElementById('message').style.display = 'none';
+    }
+    
+    async function handleLogin() {
+      const login = document.getElementById('login').value;
+      const password = document.getElementById('password').value;
+      
+      if (!login || !password) {
+        showMessage('Заполните все поля', true);
+        return;
+      }
+      
+      try {
+        showMessage('Выполняется вход...');
+        
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ login, password, role: currentRole })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          localStorage.setItem('token', data.token);
+          showMessage(data.message);
+          
+          // Редирект по роли
+          setTimeout(() => {
+            if (data.user.role === 'admin') {
+              window.location.href = '/doktor';
+            } else {
+              window.location.href = '/zapis';
+            }
+          }, 1000);
+        } else {
+          showMessage(data.error, true);
+        }
+      } catch (error) {
+        showMessage('Ошибка соединения с сервером', true);
+      }
+    }
+    
+    async function handleRegister() {
+      const userData = {
+        login: document.getElementById('reg-login').value,
+        password: document.getElementById('reg-password').value,
+        firstName: document.getElementById('first-name').value,
+        lastName: document.getElementById('last-name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        role: currentRole
+      };
+      
+      if (!userData.login || !userData.password || !userData.firstName || !userData.lastName) {
+        showMessage('Заполните обязательные поля', true);
+        return;
+      }
+      
+      try {
+        showMessage('Регистрируем...');
+        
+        const response = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(userData)
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          localStorage.setItem('token', data.token);
+          showMessage(data.message);
+          
+          // Редирект по роли
+          setTimeout(() => {
+            if (data.user.role === 'admin') {
+              window.location.href = '/doktor';
+            } else {
+              window.location.href = '/zapis';
+            }
+          }, 1000);
+        } else {
+          showMessage(data.error, true);
+        }
+      } catch (error) {
+        showMessage('Ошибка соединения с сервером', true);
+      }
+    }
+
+    // Обработка Enter
+    document.addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        const activeSection = document.querySelector('.form-section.active');
+        if (activeSection.id === 'login-section') {
+          handleLogin();
+        } else {
+          handleRegister();
+        }
+      }
+    });
+
+    console.log('Тестовый админ: login: admin, password: admin123');
+  </script>
 </body>
 </html>
