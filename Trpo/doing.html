@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Городская поликлиника №26 — Деятельность</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 50%, #80deea 100%);
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .activity-page {
+      width: 100%;
+      max-width: 1200px;
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .page-header {
+      background: linear-gradient(to right, #00796b, #004d40);
+      color: white;
+      padding: 40px 40px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transform: translate(30%, -30%);
+    }
+
+    .page-header::after {
+      content: "";
+      position: absolute;
+      bottom: -50px;
+      left: -50px;
+      width: 150px;
+      height: 150px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 700px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .content-container {
+      padding: 40px;
+    }
+
+    .intro-text {
+      font-size: 1.1rem;
+      color: #444;
+      margin-bottom: 40px;
+      text-align: center;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .section-title {
+      color: #00796b;
+      margin: 40px 0 20px;
+      text-align: center;
+      font-size: 1.8rem;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .section-title::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(to right, #00796b, #004d40);
+      border-radius: 3px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 0;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.4s ease;
+      overflow: hidden;
+      border-top: 4px solid #00796b;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #00796b, #004d40);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 25px auto 20px;
+      color: white;
+      font-size: 1.8rem;
+      box-shadow: 0 5px 15px rgba(0, 121, 107, 0.3);
+    }
+
+    .card-content {
+      padding: 0 25px 25px;
+      text-align: center;
+    }
+
+    .card h3 {
+      color: #00796b;
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+
+    .card p {
+      color: #555;
+      margin-bottom: 0;
+      font-size: 0.95rem;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0, 121, 107, 0.03), rgba(0, 77, 64, 0.05));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .stats-section {
+      background: linear-gradient(to right, #e8f5e9, #c8e6c9);
+      border-radius: 12px;
+      padding: 40px;
+      margin: 50px 0 30px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .stats-title {
+      color: #2e7d32;
+      margin-bottom: 30px;
+      font-size: 1.5rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #00796b;
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      color: #2e7d32;
+      font-size: 0.95rem;
+    }
+
+    .additional-services {
+      background: #f8fdff;
+      border-radius: 12px;
+      padding: 30px;
+      margin: 40px 0;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .services-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .service-tag {
+      background: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+      color: #00796b;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .service-tag:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08);
+      background: #e0f2f1;
+    }
+
+    .service-tag i {
+      font-size: 0.9rem;
+    }
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 25px;
+      background: linear-gradient(to right, #00796b, #004d40);
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 121, 107, 0.3);
+      margin-top: 20px;
+    }
+
+    .back-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 121, 107, 0.4);
+    }
+
+    @media (max-width: 768px) {
+      .page-header {
+        padding: 30px 20px 20px;
+      }
+      
+      .page-header h1 {
+        font-size: 2rem;
+      }
+      
+      .content-container {
+        padding: 20px;
+      }
+      
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="activity-page">
+    <div class="page-header">
+      <h1>Направления деятельности</h1>
+      <p>Широкий спектр медицинских услуг для профилактики, диагностики и лечения заболеваний</p>
+    </div>
+
+    <div class="content-container">
+      <p class="intro-text">Городская поликлиника №26 предоставляет широкий спектр медицинских услуг, направленных на профилактику, диагностику и лечение заболеваний. Мы стремимся обеспечить каждому пациенту квалифицированную помощь в комфортных условиях.</p>
+
+      <h2 class="section-title">Основные направления</h2>
+
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-user-md"></i>
+          </div>
+          <div class="card-content">
+            <h3>Терапевтическая помощь</h3>
+            <p>Приём взрослых пациентов, диагностика и лечение распространённых заболеваний, диспансерное наблюдение, выдача справок и направлений.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-baby"></i>
+          </div>
+          <div class="card-content">
+            <h3>Педиатрия</h3>
+            <p>Медицинское обслуживание детей, вакцинация, профилактические осмотры, консультации специалистов, патронаж новорожденных.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-heartbeat"></i>
+          </div>
+          <div class="card-content">
+            <h3>Кардиология</h3>
+            <p>Диагностика сердечно-сосудистых заболеваний, ЭКГ, консультации кардиолога, контроль давления, профилактика инфарктов и инсультов.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-procedures"></i>
+          </div>
+          <div class="card-content">
+            <h3>Хирургия</h3>
+            <p>Мелкие хирургические вмешательства, перевязки, удаление новообразований, консультации хирурга, послеоперационное наблюдение.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-microscope"></i>
+          </div>
+          <div class="card-content">
+            <h3>Лабораторные исследования</h3>
+            <p>Анализы крови, мочи, биохимия, ПЦР, подготовка к госпитализации и диспансеризации, экспресс-тесты.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-syringe"></i>
+          </div>
+          <div class="card-content">
+            <h3>Профилактика и вакцинация</h3>
+            <p>Проведение прививок, профилактические мероприятия, информационные кампании по здоровью, школы здоровья.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-section">
+        <h3 class="stats-title">Поликлиника в цифрах</h3>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number">35+</div>
+            <div class="stat-label">Лет успешной работы</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">25,000+</div>
+            <div class="stat-label">Пациентов в год</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Квалифицированных специалистов</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">15+</div>
+            <div class="stat-label">Медицинских направлений</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="additional-services">
+        <h3 class="section-title">Дополнительные услуги</h3>
+        <div class="services-list">
+          <div class="service-tag">
+            <i class="fas fa-file-medical"></i>
+            <span>Медицинские справки</span>
+          </div>
+          <div class="service-tag">
+            <i class="fas fa-home"></i>
+            <span>Выезд врача на дом</span>
+          </div>
+          <div class="service-tag">
+            <i class="fas fa-notes-medical"></i>
+            <span>Оформление больничных</span>
+          </div>
+          <div class="service-tag">
+            <i class="fas fa-stethoscope"></i>
+            <span>Профосмотры</span>
+          </div>
+          <div class="service-tag">
+            <i class="fas fa-vial"></i>
+            <span>Экспресс-анализы</span>
+          </div>
+          <div class="service-tag">
+            <i class="fas fa-ambulance"></i>
+            <span>Неотложная помощь</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="main.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Вернуться на главную
+      </a>
+    </div>
+  </div>
+</body>
+</html>

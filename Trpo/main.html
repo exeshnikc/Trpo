@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Городская поликлиника №26 | Медицинский центр</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #00796b;
+      --primary-light: #48a999;
+      --primary-dark: #004c40;
+      --secondary: #ff6f00;
+      --secondary-light: #ff9e40;
+      --accent: #0288d1;
+      --light: #e0f2f1;
+      --dark: #263238;
+      --white: #ffffff;
+      --gray: #f5f5f5;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --radius: 12px;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background: linear-gradient(135deg, #e0f7fa 0%, #f0f4f8 100%);
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1400px;
+      margin: 0 auto;
+      background-color: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Header Styles */
+    .header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: var(--white);
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><path fill="white" d="M30,30 Q50,10 70,30 T90,50 T70,70 T50,90 T30,70 T10,50 T30,30 Z"/></svg>');
+      background-size: 200px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      z-index: 1;
+    }
+
+    .logo-icon {
+      font-size: 2.5rem;
+      color: var(--light);
+    }
+
+    .logo-text {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .logo-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .nav {
+      display: flex;
+      gap: 25px;
+      z-index: 1;
+    }
+
+    .nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 15px;
+      border-radius: 30px;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav a:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .nav a.active {
+      background-color: var(--secondary);
+    }
+
+    .login-button {
+      background-color: var(--white);
+      color: var(--primary);
+      padding: 10px 25px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .login-button:hover {
+      background-color: var(--light);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      padding: 40px 30px;
+      gap: 40px;
+      background: linear-gradient(to right, var(--white) 0%, var(--gray) 100%);
+      position: relative;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.1) 50%, transparent 100%);
+    }
+
+    .photo-container {
+      width: 450px;
+      height: 300px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .photo-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .photo-container:hover img {
+      transform: scale(1.05);
+    }
+
+    .photo-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+      color: var(--white);
+      font-size: 0.9rem;
+    }
+
+    .hero-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-title {
+      font-size: 2.2rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+      line-height: 1.2;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--dark);
+      margin-bottom: 25px;
+      max-width: 600px;
+    }
+
+    .stats {
+      display: flex;
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--dark);
+      opacity: 0.8;
+    }
+
+    /* Services Section */
+    .services-section {
+      padding: 40px 30px;
+      background-color: var(--white);
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 30px;
+      text-align: center;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: var(--secondary);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      cursor: pointer;
+      border-left: 4px solid var(--primary);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      position: relative;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .service-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .service-description {
+      color: var(--dark);
+      opacity: 0.8;
+      font-size: 0.95rem;
+    }
+
+    .service-arrow {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      color: var(--primary-light);
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .service-card:hover .service-arrow {
+      transform: translateX(5px);
+      color: var(--secondary);
+    }
+
+    /* News Section */
+    .news-section {
+      padding: 40px 30px;
+      background-color: var(--gray);
+    }
+
+    .news-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .view-all {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: var(--transition);
+    }
+
+    .view-all:hover {
+      color: var(--primary-dark);
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .news-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .news-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background-color: var(--secondary);
+    }
+
+    .news-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .news-date {
+      font-size: 0.85rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .news-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--dark);
+      line-height: 1.4;
+    }
+
+    .news-badge {
+      background-color: var(--secondary);
+      color: var(--white);
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 12px;
+      align-self: flex-start;
+    }
+
+    /* Info Sections */
+    .info-sections {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      padding: 40px 30px;
+    }
+
+    .info-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: var(--shadow);
+    }
+
+    .info-card h3 {
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-card h3 i {
+      color: var(--secondary);
+    }
+
+    .info-card p {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-card p i {
+      color: var(--primary-light);
+      width: 20px;
+    }
+
+    .map-container {
+      height: 300px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 15px;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Footer */
+    .footer {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: var(--white);
+      padding: 40px 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .footer-section h4 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-section h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--secondary);
+    }
+
+    .footer-section p {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-section a {
+      color: var(--light);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-section a:hover {
+      color: var(--secondary-light);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--white);
+      transition: var(--transition);
+    }
+
+    .social-link:hover {
+      background-color: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding-top: 20px;
+      margin-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 10px rgba(0, 121, 107, 0.3);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 121, 107, 0.4);
+    }
+
+    /* Loading and Debug */
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: var(--dark);
+    }
+
+    .spinner {
+      border: 3px solid rgba(0, 121, 107, 0.2);
+      border-top: 3px solid var(--primary);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .debug-info {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      border-radius: 4px;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 12px;
+      color: #856404;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1100px) {
+      .hero {
+        flex-direction: column;
+      }
+      
+      .photo-container {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+      }
+      
+      .nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .stats {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .info-sections {
+        grid-template-columns: 1fr;
+      }
+      
+      .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .services-grid, .news-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <i class="fas fa-hospital-alt logo-icon"></i>
+        <div>
+          <div class="logo-text">Городская поликлиника №26</div>
+          <div class="logo-subtitle">Медицинский центр высшей категории</div>
+        </div>
+      </div>
+      
+      <nav class="nav">
+        <a href="main.html" class="active"><i class="fas fa-home"></i> Главная</a>
+        <a href="information.html"><i class="fas fa-info-circle"></i> Об учреждении</a>
+        <a href="raspisanie.html"><i class="fas fa-calendar-alt"></i> Расписание</a>
+        <a href="doing.html"><i class="fas fa-briefcase-medical"></i> Деятельность</a>
+        <a href="platuslugi.html"><i class="fas fa-file-invoice-dollar"></i> Платные услуги</a>
+        <a href="contacts.html"><i class="fas fa-address-book"></i> Контакты</a>
+      </nav>
+      
+      <a href="page1.html" class="login-button">
+        <i class="fas fa-user"></i> Вход для пациентов
+      </a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="photo-container">
+        <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Современное здание поликлиники">
+        <div class="photo-overlay">
+          <i class="fas fa-map-marker-alt"></i> г. Минск, ул. Колесникова 3
+        </div>
+      </div>
+      
+      <div class="hero-content">
+        <h1 class="hero-title">Забота о вашем здоровье — наша главная задача</h1>
+        <p class="hero-subtitle">Мы предоставляем полный спектр медицинских услуг с применением современного оборудования и инновационных методик лечения. Наши специалисты имеют высшую квалификацию и многолетний опыт работы.</p>
+        
+        <div class="stats">
+          <div class="stat-item">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Врачей-специалистов</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">25</div>
+            <div class="stat-label">Лет успешной работы</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">15k+</div>
+            <div class="stat-label">Довольных пациентов</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+      <h2 class="section-title">Наши услуги</h2>
+      
+      <div class="services-grid">
+        <a href="online-appointment.html" class="service-card">
+          <i class="fas fa-calendar-check service-icon"></i>
+          <h3 class="service-title">Заказ талона онлайн</h3>
+          <p class="service-description">Запишитесь на прием к врачу без очереди через наш онлайн-сервис</p>
+          <i class="fas fa-arrow-right service-arrow"></i>
+        </a>
+        
+        <a href="doctor-at-home.html" class="service-card">
+          <i class="fas fa-house-user service-icon"></i>
+          <h3 class="service-title">Вызов врача на дом</h3>
+          <p class="service-description">Вызовите специалиста на дом, если не можете посетить поликлинику</p>
+          <i class="fas fa-arrow-right service-arrow"></i>
+        </a>
+        
+        <a href="doctors-list.html" class="service-card">
+          <i class="fas fa-user-md service-icon"></i>
+          <h3 class="service-title">Список врачей</h3>
+          <p class="service-description">Ознакомьтесь с квалификацией и расписанием наших специалистов</p>
+          <i class="fas fa-arrow-right service-arrow"></i>
+        </a>
+        
+        <a href="free-appointments.html" class="service-card">
+          <i class="fas fa-list-alt service-icon"></i>
+          <h3 class="service-title">Свободные приемы</h3>
+          <p class="service-description">Посмотрите доступные даты и время для записи к специалистам</p>
+          <i class="fas fa-arrow-right service-arrow"></i>
+        </a>
+        
+        <a href="electronic-card.html" class="service-card">
+          <i class="fas fa-id-card service-icon"></i>
+          <h3 class="service-title">Электронная карта</h3>
+          <p class="service-description">Доступ к вашей электронной медицинской карте онлайн</p>
+          <i class="fas fa-arrow-right service-arrow"></i>
+        </a>
+        
+        <a href="vaccination.html" class="service-card">
+          <i class="fas fa-syringe service-icon"></i>
+          <h3 class="service-title">Запись на вакцинацию</h3>
+          <p class="service-description">Запишитесь на вакцинацию от различных заболеваний</p>
+          <i class="fas fa-arrow-right service-arrow"></i>
+        </a>
+      </div>
+    </section>
+
+   
+    <!-- Info Sections -->
+    <section class="info-sections">
+      <div class="info-card">
+        <h3><i class="fas fa-clock"></i> Часы работы</h3>
+        <p><i class="fas fa-calendar-day"></i> Понедельник – Пятница: 08:00 – 20:00</p>
+        <p><i class="fas fa-calendar-day"></i> Суббота: 09:00 – 15:00</p>
+        <p><i class="fas fa-calendar-day"></i> Воскресенье: выходной</p>
+        <p><i class="fas fa-notes-medical"></i> Срочная помощь: круглосуточно</p>
+      </div>
+      
+      <div class="info-card">
+        <h3><i class="fas fa-map-marked-alt"></i> Как нас найти</h3>
+        <p><i class="fas fa-location-arrow"></i> г. Минск, ул. Колесникова 3</p>
+        <p><i class="fas fa-bus"></i> Автобусы: 12, 27, 39, 57</p>
+        <p><i class="fas fa-subway"></i> Метро: ст. "Пушкинская"</p>
+        <div class="map-container">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2430.123456789!2d27.512345!3d53.912345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbcf123456789%3A0xabcdef123456789!2z0KPQu9C40YbQsCDQmtC-0LvQtdGB0LjQutC-0LLRgdC60L7Qs9C-IDMsINCc0LjQvdGB0Lo!5e0!3m2!1sru!2sby!4v1699999999999"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-section">
+        <h4>Контактная информация</h4>
+        <p><i class="fas fa-phone-alt"></i> Справочная: +375-25-751-77-10</p>
+        <p><i class="fas fa-phone-alt"></i> Регистратура: +375-44-512-22-79</p>
+        <p><i class="fas fa-envelope"></i> Почта: info26@gmail.com</p>
+        <p><i class="fas fa-map-marker-alt"></i> Адрес: г. Минск, ул. Колесникова 3</p>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Быстрые ссылки</h4>
+        <p><a href="#"><i class="fas fa-arrow-right"></i> Расписание врачей</a></p>
+        <p><a href="#"><i class="fas fa-arrow-right"></i> Платные услуги</a></p>
+        <p><a href="#"><i class="fas fa-arrow-right"></i> Медицинские программы</a></p>
+        <p><a href="#"><i class="fas fa-arrow-right"></i> Отзывы пациентов</a></p>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Мы в соцсетях</h4>
+        <p>Следите за нашими обновлениями и новостями</p>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-odnoklassniki"></i></a>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        &copy; 2023 Городская поликлиника №26. Все права защищены.
+      </div>
+    </footer>
+  </div>
+
+  <!-- Back to Top Button -->
+  <div class="back-to-top" id="backToTop">
+    <i class="fas fa-chevron-up"></i>
+  </div>
+
+  <script>
+    // Функция для отображения отладочной информации
+    function showDebugInfo(message, type = 'info') {
+      const debugDiv = document.getElementById('debug-info');
+      debugDiv.innerHTML = `<strong>${type.toUpperCase()}:</strong> ${message}`;
+      debugDiv.style.display = 'block';
+      debugDiv.style.background = type === 'error' ? '#f8d7da' : '#fff3cd';
+      debugDiv.style.borderColor = type === 'error' ? '#f5c6cb' : '#ffeaa7';
+      debugDiv.style.color = type === 'error' ? '#721c24' : '#856404';
+    }
+
+    // Функция для проверки подключения к API
+    async function testApiConnection() {
+      try {
+        showDebugInfo('Проверяем подключение к серверу...');
+        const response = await fetch('/api/test-news');
+        const data = await response.json();
+        
+        if (data.success) {
+          showDebugInfo(` Подключение к БД успешно. Найдено ${data.total} новостей`, 'success');
+          console.log(' Новости из БД:', data.news);
+          return true;
+        } else {
+          showDebugInfo(` Ошибка БД: ${data.error}`, 'error');
+          return false;
+        }
+      } catch (error) {
+        showDebugInfo(` Ошибка подключения: ${error.message}`, 'error');
+        return false;
+      }
+    }
+
+    // Функция для отображения новостей из БД в квадратиках
+    function displayNewsFromDB(news) {
+      const container = document.getElementById('news-container');
+      
+      container.innerHTML = `
+        <div class="news-grid">
+          ${news.map(item => `
+            <div class="news-card" onclick="showNewsDetail(${item.id})">
+              <div class="news-date">${escapeHtml(item.date)}</div>
+              <div class="news-title">${escapeHtml(item.short_description || item.title)}</div>
+              ${item.is_new ? '<span class="news-badge">НОВОЕ</span>' : ''}
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+ 
+      // Функция для обработки кликов по сервисам
+    function showService(service) {
+      const services = {
+        'online': 'Заказ талона онлайн - функция в разработке',
+        'home': 'Вызов врача на дом - функция в разработке',
+        'admin': 'Администрация - функция в разработке',
+        'doctors': 'Список врачей - функция в разработке',
+        'appointments': 'Список свободных приёмов - функция в разработке',
+        'card': 'Электронная карта пациента - функция в разработке',
+        'vaccine': 'Запись на вакцинацию - функция в разработке'
+      };
+      
+      alert(services[service] || 'Сервис временно недоступен');
+    }
+
+    // Основная функция инициализации
+    async function initializePage() {
+      console.log(' Инициализация страницы...');
+      
+      // Сначала проверяем подключение к API
+      const isConnected = await testApiConnection();
+      
+      if (isConnected) {
+        // Если подключение есть, загружаем новости из БД
+        await loadNewsFromDB();
+      } else {
+        // Если нет подключения, показываем резервные новости
+        showBackupNews();
+      }
+    }
+
+    // Код для кнопки "Наверх"
+    document.addEventListener('DOMContentLoaded', function() {
+      const backToTopButton = document.getElementById('backToTop');
+      
+      // Показать/скрыть кнопку при прокрутке
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.add('visible');
+       

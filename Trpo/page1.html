@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Городская поликлиника №26 — Вход в систему</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #00796b;
+      --primary-light: #48a999;
+      --primary-dark: #004c40;
+      --secondary: #ff6f00;
+      --secondary-light: #ff9e40;
+      --accent: #0288d1;
+      --light: #e0f2f1;
+      --dark: #263238;
+      --white: #ffffff;
+      --gray: #f5f5f5;
+      --shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      --radius: 12px;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 50%, #80deea 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .login-container {
+      display: flex;
+      width: 100%;
+      max-width: 1000px;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-left {
+      flex: 1;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: var(--white);
+      padding: 50px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-left::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><path fill="white" d="M30,30 Q50,10 70,30 T90,50 T70,70 T50,90 T30,70 T10,50 T30,30 Z"/></svg>');
+      background-size: 200px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
+      z-index: 1;
+      position: relative;
+    }
+
+    .logo-icon {
+      font-size: 2.8rem;
+      color: var(--light);
+    }
+
+    .logo-text {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .welcome-title {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      z-index: 1;
+      position: relative;
+    }
+
+    .welcome-text {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      opacity: 0.9;
+      z-index: 1;
+      position: relative;
+    }
+
+    .features {
+      list-style: none;
+      z-index: 1;
+      position: relative;
+    }
+
+    .features li {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .features i {
+      color: var(--secondary-light);
+    }
+
+    .login-right {
+      flex: 1;
+      padding: 50px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      background-color: var(--primary);
+      color: var(--white);
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      z-index: 10;
+    }
+
+    .close-button:hover {
+      background-color: var(--primary-dark);
+      transform: scale(1.1);
+    }
+
+    .tabs {
+      display: flex;
+      background-color: var(--gray);
+      border-radius: 30px;
+      padding: 5px;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 12px;
+      text-align: center;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+      z-index: 1;
+    }
+
+    .tab.active {
+      background-color: var(--primary);
+      color: var(--white);
+      box-shadow: 0 4px 10px rgba(0, 121, 107, 0.3);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .login-title {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .login-subtitle {
+      color: var(--dark);
+      margin-bottom: 30px;
+      text-align: center;
+      opacity: 0.8;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary-light);
+      font-size: 1.2rem;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 16px 16px 16px 50px;
+      border: 2px solid var(--light);
+      border-radius: var(--radius);
+      font-size: 1rem;
+      transition: var(--transition);
+      background-color: var(--gray);
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background-color: var(--white);
+      box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.1);
+    }
+
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      font-size: 0.9rem;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .remember input {
+      accent-color: var(--primary);
+    }
+
+    .forgot {
+      color: var(--primary);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .forgot:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: var(--white);
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(0, 121, 107, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .login-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 121, 107, 0.4);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 25px 0;
+      color: var(--dark);
+      opacity: 0.6;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: var(--light);
+    }
+
+    .divider span {
+      padding: 0 15px;
+      font-size: 0.9rem;
+    }
+
+    .social-login {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .social-button {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid var(--light);
+      border-radius: var(--radius);
+      background: var(--white);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 500;
+    }
+
+    .social-button:hover {
+      border-color: var(--primary-light);
+      transform: translateY(-2px);
+    }
+
+    .social-button.gosuslugi {
+      background: linear-gradient(135deg, #2a6bb3 0%, #1e4a7a 100%);
+      color: white;
+      border: none;
+    }
+
+    .register-link {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.95rem;
+    }
+
+    .register-link a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .register-link a:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+
+    /* Анимация для индикатора выбора вкладки */
+    @keyframes tabSwitch {
+      0% { transform: scale(0.95); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .tab-content.active {
+      animation: tabSwitch 0.4s ease;
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+      .login-container {
+        flex-direction: column;
+        max-width: 500px;
+      }
+      
+      .login-left {
+        padding: 30px 25px;
+      }
+      
+      .login-right {
+        padding: 30px 25px;
+      }
+      
+      .welcome-title {
+        font-size: 1.8rem;
+      }
+      
+      .social-login {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        border-radius: 0;
+      }
+      
+      body {
+        padding: 0;
+      }
+      
+      .login-left, .login-right {
+        padding: 25px 20px;
+      }
+      
+      .logo {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <!-- Левая часть с информацией -->
+    <div class="login-left">
+      <div class="close-button" onclick="location.href='main.html'">
+        <i class="fas fa-arrow-left"></i>
+      </div>
+      
+      <div class="logo">
+        <i class="fas fa-hospital-alt logo-icon"></i>
+        <div class="logo-text">Поликлиника №26</div>
+      </div>
+      
+      <h1 class="welcome-title">Добро пожаловать!</h1>
+      <p class="welcome-text">Войдите в свою учетную запись для доступа к электронным услугам нашей поликлиники. Управляйте своими записями, получайте результаты анализов и консультируйтесь с врачами онлайн.</p>
+      
+      <ul class="features">
+        <li><i class="fas fa-check-circle"></i> Онлайн-запись к врачам</li>
+        <li><i class="fas fa-check-circle"></i> Доступ к электронной карте</li>
+        <li><i class="fas fa-check-circle"></i> Результаты анализов онлайн</li>
+        <li><i class="fas fa-check-circle"></i> Консультации в телемедицине</li>
+      </ul>
+    </div>
+    
+    <!-- Правая часть с формой входа -->
+    <div class="login-right">
+      <h2 class="login-title">Вход в систему</h2>
+      <p class="login-subtitle">Выберите тип учетной записи для входа</p>
+      
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab('user')">Пациент</div>
+        <div class="tab" onclick="switchTab('admin')">Персонал</div>
+      </div>
+      
+      <!-- Форма для пациентов -->
+      <div id="user-tab" class="tab-content active">
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="text" placeholder="Логин или номер полиса">
+        </div>
+        
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Пароль">
+        </div>
+        
+        <div class="remember-forgot">
+          <label class="remember">
+            <input type="checkbox" checked>
+            Запомнить меня
+          </label>
+          <a href="#" class="forgot">Забыли пароль?</a>
+        </div>
+        
+        <button class="login-button" onclick="login()">
+          <i class="fas fa-sign-in-alt"></i> Войти в систему
+        </button>
+        
+        <div class="divider">
+          <span>Заполните поля</span>
+        </div>
+        
+                
+        <div class="register-link">
+          Еще нет учетной записи? <a href="#">Зарегистрироваться</a>
+        </div>
+      </div>
+      
+      <!-- Форма для персонала -->
+      <div id="admin-tab" class="tab-content">
+        <div class="input-group">
+          <i class="fas fa-user-md"></i>
+          <input type="text" placeholder="Логин сотрудника">
+        </div>
+        
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Пароль">
+        </div>
+        
+        <div class="input-group">
+          <i class="fas fa-shield-alt"></i>
+          <input type="text" placeholder="Код доступа">
+        </div>
+        
+        <div class="remember-forgot">
+          <label class="remember">
+            <input type="checkbox">
+            Запомнить на этом устройстве
+          </label>
+          <a href="#" class="forgot">Забыли код доступа?</a>
+        </div>
+        
+        <button class="login-button" onclick="loginAdmin()">
+          <i class="fas fa-sign-in-alt"></i> Войти как персонал
+        </button>
+        
+        <div class="register-link">
+          Возникли проблемы с доступом? <a href="#">Обратиться к администратору</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Переключение между вкладками
+    function switchTab(tab) {
+      // Скрыть все вкладки
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+      });
+      
+      // Убрать активный класс со всех табов
+      document.querySelectorAll('.tab').forEach(tabEl => {
+        tabEl.classList.remove('active');
+      });
+      
+      // Показать выбранную вкладку
+      document.getElementById(tab + '-tab').classList.add('active');
+      
+      // Сделать выбранный таб активным
+      event.target.classList.add('active');
+    }
+    
+    // Функция входа для пациентов
+    function login() {
+      const login = document.querySelector('#user-tab input[type="text"]').value;
+      const password = document.querySelector('#user-tab input[type="password"]').value;
+      
+      if (!login || !password) {
+        alert('Пожалуйста, заполните все поля');
+        return;
+      }
+      
+      // Здесь должна быть логика авторизации
+      alert('Вход выполнен успешно! Перенаправляем в личный кабинет...');
+      // location.href = 'personal.html';
+    }
+    
+    // Функция входа для персонала
+    function loginAdmin() {
+      const login = document.querySelector('#admin-tab input[type="text"]').value;
+      const password = document.querySelector('#admin-tab input[type="password"]').value;
+      const code = document.querySelector('#admin-tab input[placeholder="Код доступа"]').value;
+      
+      if (!login || !password || !code) {
+        alert('Пожалуйста, заполните все поля');
+        return;
+      }
+      
+      // Здесь должна быть логика авторизации
+      alert('Вход для персонала выполнен успешно! Перенаправляем в панель управления...');
+      // location.href = 'admin.html';
+    }
+    
+    // Обработка нажатия Enter в полях ввода
+    document.addEventListener('DOMContentLoaded', function() {
+      const inputs = document.querySelectorAll('input');
+      inputs.forEach(input => {
+        input.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            const activeTab = document.querySelector('.tab.active').textContent;
+            if (activeTab === 'Пациент') {
+              login();
+            } else {
+              loginAdmin();
+            }
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

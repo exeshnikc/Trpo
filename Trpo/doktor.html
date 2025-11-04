@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Городская поликлиника №26 — Врачи</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrapper">
+    <div class="sidebar">
+      <h3>Список врачей</h3>
+      <ul id="doctor-list">
+        <!-- Список будет заполняться из БД -->
+      </ul>
+    </div>
+    <div class="main">
+      <div class="tabs">
+        <div class="tab active">Администратор</div>
+      </div>
+      <h2>Врач</h2>
+      <div class="search">
+        <input type="text" placeholder="ФИО">
+      </div>
+      <div class="buttons">
+        <button>Данные</button>
+        <button>Добавить</button>
+        <button>Удалить</button>
+      </div>
+      <div class="form">
+        <input type="text" placeholder="Дата рождения">
+        <input type="text" placeholder="Участок">
+        <input type="text" placeholder="Специальность">
+        <input type="text" placeholder="Группа здоровья">
+        <input type="text" placeholder="Домашний адрес">
+        <input type="text" placeholder="Номер талона" disabled>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

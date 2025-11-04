@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Городская поликлиника №26 — Контакты</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 50%, #80deea 100%);
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .contacts-page {
+      width: 100%;
+      max-width: 1200px;
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .page-header {
+      background: linear-gradient(to right, #00796b, #004d40);
+      color: white;
+      padding: 40px 40px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transform: translate(30%, -30%);
+    }
+
+    .page-header::after {
+      content: "";
+      position: absolute;
+      bottom: -50px;
+      left: -50px;
+      width: 150px;
+      height: 150px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 700px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .content-container {
+      padding: 40px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .contact-info {
+      background: linear-gradient(to bottom right, #e0f2f1, #b2dfdb);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .contact-info h2 {
+      color: #004d40;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+    }
+
+    .contact-info h2 i {
+      font-size: 1.3rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      gap: 15px;
+    }
+
+    .contact-icon {
+      width: 45px;
+      height: 45px;
+      background: #00796b;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-details {
+      flex: 1;
+    }
+
+    .contact-details strong {
+      color: #004d40;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .contact-details p {
+      color: #333;
+      margin: 0;
+    }
+
+    .working-hours {
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(0, 121, 107, 0.2);
+    }
+
+    .hours-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .hour-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(0, 121, 107, 0.1);
+    }
+
+    .day {
+      color: #004d40;
+      font-weight: 500;
+    }
+
+    .time {
+      color: #00796b;
+      font-weight: 600;
+    }
+
+    .map-container {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      height: 100%;
+      min-height: 400px;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .form-section {
+      background: #f8fdff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      margin-top: 40px;
+    }
+
+    .form-section h2 {
+      color: #00796b;
+      margin-bottom: 25px;
+      text-align: center;
+      font-size: 1.8rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full-width {
+      grid-column: span 2;
+    }
+
+    .form-label {
+      color: #004d40;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .form-input {
+      padding: 14px 16px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #00796b;
+      box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.1);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+      font-family: inherit;
+    }
+
+    .submit-button {
+      padding: 14px 30px;
+      background: linear-gradient(to right, #00796b, #004d40);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 121, 107, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .submit-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 121, 107, 0.4);
+    }
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 25px;
+      background: linear-gradient(to right, #00796b, #004d40);
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 121, 107, 0.3);
+      margin-top: 30px;
+    }
+
+    .back-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 121, 107, 0.4);
+    }
+
+    .emergency-contact {
+      background: linear-gradient(to right, #ffebee, #ffcdd2);
+      border-left: 4px solid #f44336;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 30px;
+    }
+
+    .emergency-contact h3 {
+      color: #c62828;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .emergency-contact p {
+      color: #555;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .page-header {
+        padding: 30px 20px 20px;
+      }
+      
+      .page-header h1 {
+        font-size: 2rem;
+      }
+      
+      .content-container {
+        padding: 20px;
+      }
+      
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+      
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .form-group.full-width {
+        grid-column: span 1;
+      }
+      
+      .hours-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="contacts-page">
+    <div class="page-header">
+      <h1>Контактная информация</h1>
+      <p>Свяжитесь с нами удобным для вас способом. Мы всегда готовы помочь!</p>
+    </div>
+
+    <div class="content-container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h2><i class="fas fa-info-circle"></i> Основная информация</h2>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="contact-details">
+              <strong>Адрес</strong>
+              <p>г. Минск, ул. Колесникова 3</p>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div class="contact-details">
+              <strong>Телефон справочной</strong>
+              <p>+375-25-751-77-10</p>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <div class="contact-details">
+              <strong>Телефон регистратуры</strong>
+              <p>+375-44-512-22-79</p>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="contact-details">
+              <strong>Email</strong>
+              <p>info26@gmail.com</p>
+            </div>
+          </div>
+
+          <div class="working-hours">
+            <h3>Часы работы</h3>
+            <div class="hours-grid">
+              <div class="hour-item">
+                <span class="day">Понедельник - Пятница</span>
+                <span class="time">08:00 – 20:00</span>
+              </div>
+              <div class="hour-item">
+                <span class="day">Суббота</span>
+                <span class="time">09:00 – 15:00</span>
+              </div>
+              <div class="hour-item">
+                <span class="day">Воскресенье</span>
+                <span class="time">Выходной</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="map-container">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2349.125698593311!2d27.48226797677941!3d53.92105637243344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbc56f15b8c0b1%3A0x5c6c4e9c8b5c6c4e!2z0YPQuy4g0JrQvtC70LXRgdC90LjQutC-0LLQsCAzLCDQnNC40L3RgdC6!5e0!3m2!1sru!2sby!4v1699999999999"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+
+      <div class="emergency-contact">
+        <h3><i class="fas fa-exclamation-triangle"></i> Неотложная помощь</h3>
+        <p>В случае экстренной ситуации звоните по телефону: <strong>103</strong> (скорая медицинская помощь)</p>
+      </div>
+
+      <div class="form-section">
+        <h2>Обратная связь</h2>
+        <form class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Ваше имя</label>
+            <input type="text" class="form-input" placeholder="Введите ваше имя">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" placeholder="Введите ваш email">
+          </div>
+          
+          <div class="form-group full-width">
+            <label class="form-label">Тема сообщения</label>
+            <input type="text" class="form-input" placeholder="Укажите тему сообщения">
+          </div>
+          
+          <div class="form-group full-width">
+            <label class="form-label">Ваше сообщение</label>
+            <textarea class="form-input form-textarea" placeholder="Опишите ваш вопрос или предложение..."></textarea>
+          </div>
+          
+          <div class="form-group full-width" style="text-align: center;">
+            <button type="submit" class="submit-button">
+              <i class="fas fa-paper-plane"></i> Отправить сообщение
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <a href="main.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Вернуться на главную
+      </a>
+    </div>
+  </div>
+</body>
+</html>

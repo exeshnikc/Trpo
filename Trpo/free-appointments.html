@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Свободные приемы | Поликлиника №26</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #00796b;
+      --primary-light: #48a999;
+      --primary-dark: #004c40;
+      --secondary: #ff6f00;
+      --secondary-light: #ff9e40;
+      --accent: #0288d1;
+      --light: #e0f2f1;
+      --dark: #263238;
+      --white: #ffffff;
+      --gray: #f5f5f5;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --radius: 12px;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background: linear-gradient(135deg, #e0f7fa 0%, #f0f4f8 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .page {
+      max-width: 1400px;
+      margin: 0 auto;
+      background-color: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Header Styles */
+    .header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: var(--white);
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><path fill="white" d="M30,30 Q50,10 70,30 T90,50 T70,70 T50,90 T30,70 T10,50 T30,30 Z"/></svg>');
+      background-size: 200px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      z-index: 1;
+    }
+
+    .logo-icon {
+      font-size: 2.5rem;
+      color: var(--light);
+    }
+
+    .logo-text {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .logo-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .nav {
+      display: flex;
+      gap: 25px;
+      z-index: 1;
+    }
+
+    .nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 15px;
+      border-radius: 30px;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav a:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .nav a.active {
+      background-color: var(--secondary);
+    }
+
+    .login-button {
+      background-color: var(--white);
+      color: var(--primary);
+      padding: 10px 25px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .login-button:hover {
+      background-color: var(--light);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Page Header */
+    .page-header {
+      background: linear-gradient(to right, var(--light), var(--white));
+      padding: 30px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .page-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      background-color: var(--light);
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .page-title {
+      font-size: 1.8rem;
+      color: var(--primary);
+    }
+
+    .page-subtitle {
+      color: var(--dark);
+      opacity: 0.8;
+      margin-top: 5px;
+    }
+
+    /* Main Content */
+    .content-container {
+      padding: 30px;
+    }
+
+    /* Search and Filters */
+    .search-section {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: var(--shadow);
+      margin-bottom: 30px;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .search-group {
+      flex: 1;
+    }
+
+    .search-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .search-control {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .search-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.1);
+    }
+
+    .filter-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .filter-tag {
+      padding: 8px 16px;
+      background: var(--light);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+
+    .filter-tag:hover {
+      background: var(--primary-light);
+      color: white;
+    }
+
+    .filter-tag.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Appointments Grid */
+    .appointments-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .appointment-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border-left: 4px solid var(--primary);
+    }
+
+    .appointment-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .appointment-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .doctor-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .doctor-info {
+      flex: 1;
+    }
+
+    .doctor-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .doctor-specialty {
+      color: var(--dark);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .appointment-date {
+      background: var(--secondary-light);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 15px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    .appointment-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--dark);
+    }
+
+    .detail-item i {
+      color: var(--primary);
+      width: 16px;
+    }
+
+    .time-slots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .time-slot {
+      padding: 10px;
+      text-align: center;
+      background: var(--light);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.9rem;
+      border: 2px solid transparent;
+    }
+
+    .time-slot:hover {
+      background: var(--primary-light);
+      color: white;
+    }
+
+    .time-slot.selected {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary-dark);
+    }
+
+    .time-slot.disabled {
+      background: #f0f0f0;
+      color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .appointment-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: center;
+      text-decoration: none;
+      flex: 1;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-secondary {
+      background: var(--secondary);
+    }
+
+    .btn-secondary:hover {
+      background: #e65c00;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--light);
+    }
+
+    /* Calendar Section */
+    .calendar-section {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: var(--shadow);
+      margin-bottom: 30px;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .calendar-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .calendar-nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    .calendar-nav button {
+      background: var(--light);
+      border: none;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .calendar-nav button:hover {
+      background: var(--primary-light);
+      color: white;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+    }
+
+    .calendar-day {
+      text-align: center;
+      padding: 10px 5px;
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 0.8rem;
+    }
+
+    .calendar-date {
+      text-align: center;
+      padding: 12px 5px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .calendar-date:hover {
+      background: var(--light);
+    }
+
+    .calendar-date.selected {
+      background: var(--primary);
+      color: white;
+    }
+
+    .calendar-date.has-slots::after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--secondary);
+      border-radius: 50%;
+    }
+
+    .calendar-date.disabled {
+      color: #ccc;
+      cursor: not-allowed;
+      background: #f9f9f9;
+    }
+
+    /* Statistics */
+    .stats-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      color: var(--dark);
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+
+    /* No Results */
+    .no-results {
+      text-align: center;
+      padding: 40px;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .no-results-icon {
+      font-size: 4rem;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    .no-results-text {
+      color: var(--dark);
+      opacity: 0.7;
+    }
+
+    /* Footer */
+    .footer {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: var(--white);
+      padding: 40px 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .footer-section h4 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-section h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--secondary);
+    }
+
+    .footer-section p {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-section a {
+      color: var(--light);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-section a:hover {
+      color: var(--secondary-light);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--white);
+      transition: var(--transition);
+    }
+
+    .social-link:hover {
+      background-color: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding-top: 20px;
+      margin-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 10px rgba(0, 121, 107, 0.3);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 121, 107, 0.4);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1100px) {
+      .appointments-grid {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+      }
+      
+      .nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .search-row {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .appointment-details {
+        grid-template-columns: 1fr;
+      }
+      
+      .time-slots {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .appointment-actions {
+        flex-direction: column;
+      }
+      
+      .calendar-grid {
+        grid-template-columns: repeat(7, 1fr);
+      }
+      
+      .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .appointments-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .stats-section {
+        grid-template-columns: 1fr;
+      }
+      
+      .appointment-header {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .time-slots {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <i class="fas fa-hospital-alt logo-icon"></i>
+        <div>
+          <div class="logo-text">Городская поликлиника №26</div>
+          <div class="logo-subtitle">Медицинский центр высшей категории</div>
+        </div>
+      </div>
+      
+      <nav class="nav">
+        <a href="main.html"><i class="fas fa-home"></i> Главная</a>
+        <a href="information.html"><i class="fas fa-info-circle"></i> Об учреждении</a>
+        <a href="raspisanie.html"><i class="fas fa-calendar-alt"></i> Расписание</a>
+        <a href="doing.html"><i class="fas fa-briefcase-medical"></i> Деятельность</a>
+        <a href="platuslugi.html"><i class="fas fa-file-invoice-dollar"></i> Платные услуги</a>
+        <a href="contacts.html"><i class="fas fa-address-book"></i> Контакты</a>
+      </nav>
+      
+      <a href="page1.html" class="login-button">
+        <i class="fas fa-user"></i> Вход для пациентов
+      </a>
+    </header>
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="page-icon">
+        <i class="fas fa-list-alt"></i>
+      </div>
+      <div>
+        <h1 class="page-title">Свободные приемы</h1>
+        <p class="page-subtitle">Запишитесь на прием к врачу в удобное для вас время</p>
+      </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="content-container">
+      <div class="stats-section">
+        <div class="stat-card">
+          <div class="stat-number" id="totalSlots">0</div>
+          <div class="stat-label">Свободных записей сегодня</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="availableDoctors">0</div>
+          <div class="stat-label">Врачей с записями</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="nextWeekSlots">0</div>
+          <div class="stat-label">Записей на следующую неделю</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">15 мин</div>
+          <div class="stat-label">Среднее время приема</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Calendar Section -->
+    <div class="content-container">
+      <div class="calendar-section">
+        <div class="calendar-header">
+          <div class="calendar-title" id="currentMonth">Октябрь 2023</div>
+          <div class="calendar-nav">
+            <button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+            <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+          </div>
+        </div>
+        <div class="calendar-grid" id="calendarGrid">
+          <!-- Calendar will be generated by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Search and Filters -->
+    <div class="content-container">
+      <div class="search-section">
+        <div class="search-row">
+          <div class="search-group">
+            <label class="search-label">Поиск врача</label>
+            <input type="text" class="search-control" placeholder="Введите ФИО врача или специальность..." id="searchInput">
+          </div>
+          <div class="search-group">
+            <label class="search-label">Специальность</label>
+            <select class="search-control" id="specialtyFilter">
+              <option value="">Все специальности</option>
+              <option value="Терапевт">Терапевт</option>
+              <option value="Педиатр">Педиатр</option>
+              <option value="Кардиолог">Кардиолог</option>
+              <option value="Невролог">Невролог</option>
+              <option value="Хирург">Хирург</option>
+              <option value="Офтальмолог">Офтальмолог</option>
+              <option value="Стоматолог">Стоматолог</option>
+              <option value="Гинеколог">Гинеколог</option>
+            </select>
+          </div>
+          <div class="search-group">
+            <label class="search-label">Дата приема</label>
+            <input type="date" class="search-control" id="dateFilter">
+          </div>
+        </div>
+        
+        <div class="filter-tags" id="quickFilters">
+          <div class="filter-tag active" data-filter="all">Все записи</div>
+          <div class="filter-tag" data-filter="today">Сегодня</div>
+          <div class="filter-tag" data-filter="tomorrow">Завтра</div>
+          <div class="filter-tag" data-filter="week">На этой неделе</div>
+          <div class="filter-tag" data-filter="morning">Утренние (8:00-12:00)</div>
+          <div class="filter-tag" data-filter="evening">Вечерние (16:00-20:00)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Appointments Grid -->
+    <div class="content-container">
+      <div class="appointments-grid" id="appointmentsContainer">
+        <!-- Appointments will be loaded here by JavaScript -->
+      </div>
+      
+      <!-- No Results Message -->
+      <div class="no-results" id="noResults" style="display: none;">
+        <i class="fas fa-search no-results-icon"></i>
+        <div class="no-results-text">Свободные приемы по вашему запросу не найдены. Попробуйте изменить параметры поиска или выберите другую дату.</div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-section">
+        <h4>Контактная информация</h4>
+        <p><i class="fas fa-phone-alt"></i> Справочная: +375-25-751-77-10</p>
+        <p><i class="fas fa-phone-alt"></i> Регистратура: +375-44-512-22-79</p>
+        <p><i class="fas fa-envelope"></i> Почта: info26@gmail.com</p>
+        <p><i class="fas fa-map-marker-alt"></i> Адрес: г. Минск, ул. Колесникова 3</p>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Быстрые ссылки</h4>
+        <p><a href="online-appointment.html"><i class="fas fa-arrow-right"></i> Запись к врачу</a></p>
+        <p><a href="doctor-at-home.html"><i class="fas fa-arrow-right"></i> Вызов врача на дом</a></p>
+        <p><a href="doctors-list.html"><i class="fas fa-arrow-right"></i> Список врачей</a></p>
+        <p><a href="#"><i class="fas fa-arrow-right"></i> Отзывы пациентов</a></p>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Мы в соцсетях</h4>
+        <p>Следите за нашими обновлениями и новостями</p>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-odnoklassniki"></i></a>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        &copy; 2023 Городская поликлиника №26. Все права защищены.
+      </div>
+    </footer>
+  </div>
+
+  <!-- Back to Top Button -->
+  <div class="back-to-top" id="backToTop">
+    <i class="fas fa-chevron-up"></i>
+  </div>
+
+  <script>
+    // Данные о свободных приемах
+    const appointmentsData = [
+      {
+        id: 1,
+        doctorId: 1,
+        doctorName: "Иванова Мария Петровна",
+        specialty: "Терапевт",
+        room: "215",
+        date: "2023-10-17",
+        timeSlots: ["08:30", "09:15", "10:00", "11:30", "14:00", "15:30", "16:45"],
+        category: "highest"
+      },
+      {
+        id: 2,
+        doctorId: 2,
+        doctorName: "Петров Алексей Владимирович",
+        specialty: "Хирург",
+        room: "312",
+        date: "2023-10-17",
+        timeSlots: ["09:00", "10:30", "14:15", "15:45", "17:30", "18:15"],
+        category: "first"
+      },
+      {
+        id: 3,
+        doctorId: 3,
+        doctorName: "Сидорова Елена Ивановна",
+        specialty: "Педиатр",
+        room: "118",
+        date: "2023-10-17",
+        timeSlots: ["08:00", "09:45", "11:15", "13:30", "15:00", "16:30"],
+        category: "highest"
+      },
+      {
+        id: 4,
+        doctorId: 4,
+        doctorName: "Козлов Дмитрий Сергеевич",
+        specialty: "Кардиолог",
+        room: "204",
+        date: "2023-10-18",
+        timeSlots: ["10:00", "11:30", "14:00", "15:45", "17:15"],
+        category: "second"
+      },
+      {
+        id: 5,
+        doctorId: 5,
+        doctorName: "Новикова Анна Михайловна",
+        specialty: "Невролог",
+        room: "305",
+        date: "2023-10-18",
+        timeSlots: ["08:30", "10:15", "12:00", "14:30", "16:45", "18:00"],
+        category: "first"
+      },
+      {
+        id: 6,
+        doctorId: 6,
+        doctorName: "Громов Игорь Васильевич",
+        specialty: "Офтальмолог",
+        room: "127",
+        date: "2023-10-19",
+        timeSlots: ["09:00", "10:45", "13:15", "15:30", "17:00"],
+        category: "highest"
+      },
+      {
+        id: 7,
+        doctorId: 1,
+        doctorName: "Иванова Мария Петровна",
+        specialty: "Терапевт",
+        room: "215",
+        date: "2023-10-19",
+        timeSlots: ["08:15", "09:45", "11:30", "14:15", "16:00", "17:45"],
+        category: "highest"
+      },
+      {
+        id: 8,
+        doctorId: 3,
+        doctorName: "Сидорова Елена Ивановна",
+        specialty: "Педиатр",
+        room: "118",
+        date: "2023-10-20",
+        timeSlots: ["08:30", "10:00", "12:15", "14:45", "16:30"],
+        category: "highest"
+      }
+    ];
+
+    // Текущее состояние
+    let currentState = {
+      selectedDate: new Date().toISOString().split('T')[0],
+      currentMonth: new Date().getMonth(),
+      currentYear: new Date().getFullYear(),
+      selectedTimeSlots: {}
+    };
+
+    // Функция для отображения приемов
+    function renderAppointments(appointments) {
+      const container = document.getElementById('appointmentsContainer');
+      const noResults = document.getElementById('noResults');
+      
+      if (appointments.length === 0) {
+        container.innerHTML = '';
+        noResults.style.display = 'block';
+        return;
+      }
+      
+      noResults.style.display = 'none';
+      
+      container.innerHTML = appointments.map(appointment => `
+        <div class="appointment-card" data-id="${appointment.id}">
+          <div class="appointment-header">
+            <div class="doctor-avatar">
+              <i class="fas fa-user-md"></i>
+            </div>
+            <div class="doctor-info">
+              <div class="doctor-name">${appointment.doctorName}</div>
+              <div class="doctor-specialty">${appointment.specialty}</div>
+              <div class="appointment-date">${formatDate(appointment.date)}</div>
+            </div>
+          </div>
+          
+          <div class="appointment-details">
+            <div class="detail-item">
+              <i class="fas fa-door-open"></i>
+              <span>Кабинет: ${appointment.room}</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-clock"></i>
+              <span>Свободных окон: ${appointment.timeSlots.length}</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-stethoscope"></i>
+              <span>${getCategoryText(appointment.category)}</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-calendar-day"></i>
+              <span>${getDayOfWeek(appointment.date)}</span>
+            </div>
+          </div>
+          
+          <div class="time-slots">
+            ${appointment.timeSlots.map(time => `
+              <div class="time-slot ${currentState.selectedTimeSlots[appointment.id] === time ? 'selected' : ''}" 
+                   data-time="${time}" 
+                   onclick="selectTimeSlot(${appointment.id}, '${time}')">
+                ${time}
+              </div>
+            `).join('')}
+          </div>
+          
+          <div class="appointment-actions">
+            <button class="btn ${currentState.selectedTimeSlots[appointment.id] ? 'btn-secondary' : ''}" 
+                    onclick="bookAppointment(${appointment.id})" 
+                    ${!currentState.selectedTimeSlots[appointment.id] ? 'disabled' : ''}>
+              <i class="fas fa-calendar-check"></i> Записаться
+            </button>
+            <button class="btn btn-outline" onclick="viewDoctorProfile(${appointment.doctorId})">
+              <i class="fas fa-user-md"></i> Профиль врача
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Функция для форматирования даты
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      return `${day.toString().padStart(2, '0')}.${month.toString().padStart(2, '0')}.${date.getFullYear()}`;
+    }
+
+    // Функция для получения дня недели
+    function getDayOfWeek(dateString) {
+      const days = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+      const date = new Date(dateString);
+      return days[date.getDay()];
+    }
+
+    // Функция для получения текста категории
+    function getCategoryText(category) {
+      const categories = {
+        'highest': 'Высшая категория',
+        'first': 'Первая категория',
+        'second': 'Вторая категория'
+      };
+      return categories[category] || '';
+    }
+
+    // Функция для выбора временного слота
+    function selectTimeSlot(appointmentId, time) {
+      if (currentState.selectedTimeSlots[appointmentId] === time) {
+        delete currentState.selectedTimeSlots[appointmentId];
+      } else {
+        currentState.selectedTimeSlots[appointmentId] = time;
+      }
+      filterAppointments();
+    }
+
+    // Функция для записи на прием
+    function bookAppointment(appointmentId) {
+      const appointment = appointmentsData.find(a => a.id === appointmentId);
+      const selectedTime = currentState.selectedTimeSlots[appointmentId];
+      
+      if (appointment && selectedTime) {
+        if (confirm(`Подтвердите запись к врачу ${appointment.doctorName} на ${formatDate(appointment.date)} в ${selectedTime}`)) {
+          // В реальной системе здесь будет вызов API для записи
+          alert(`Вы успешно записаны на прием к ${appointment.doctorName} на ${formatDate(appointment.date)} в ${selectedTime}`);
+          
+          // Убираем выбранный временной слот из данных
+          const timeIndex = appointment.timeSlots.indexOf(selectedTime);
+          if (timeIndex > -1) {
+            appointment.timeSlots.splice(timeIndex, 1);
+          }
+          delete currentState.selectedTimeSlots[appointmentId];
+          
+          // Обновляем статистику и отображение
+          updateStatistics();
+          filterAppointments();
+        }
+      }
+    }
+
+    // Функция для просмотра профиля врача
+    function viewDoctorProfile(doctorId) {
+      window.location.href = `doctors-list.html#doctor-${doctorId}`;
+    }
+
+    // Функция для фильтрации приемов
+    function filterAppointments() {
+      const searchText = document.getElementById('searchInput').value.toLowerCase();
+      const specialty = document.getElementById('specialtyFilter').value;
+      const dateFilter = document.getElementById('dateFilter').value;
+      const activeFilter = document.querySelector('.filter-tag.active')?.dataset.filter;
+      
+      let filteredAppointments = appointmentsData.filter(appointment => {
+        // Поиск по тексту
+        const matchesSearch = !searchText || 
+          appointment.doctorName.toLowerCase().includes(searchText) ||
+          appointment.specialty.toLowerCase().includes(searchText);
+        
+        // Фильтр по специальности
+        const matchesSpecialty = !specialty || appointment.specialty === specialty;
+        
+        // Фильтр по дате
+        const matchesDate = !dateFilter || appointment.date === dateFilter;
+        
+        // Быстрые фильтры
+        let matchesQuickFilter = true;
+        if (activeFilter) {
+          const today = new Date().toISOString().split('T')[0];
+          const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+          const weekStart = new Date();
+          const weekEnd = new Date(Date.now() + 7 * 86400000);
+          
+          switch (activeFilter) {
+            case 'today':
+              matchesQuickFilter = appointment.date === today;
+              break;
+            case 'tomorrow':
+              matchesQuickFilter = appointment.date === tomorrow;
+              break;
+            case 'week':
+              const appointmentDate = new Date(appointment.date);
+              matchesQuickFilter = appointmentDate >= weekStart && appointmentDate <= weekEnd;
+              break;
+            case 'morning':
+              matchesQuickFilter = appointment.timeSlots.some(time => {
+                const hour = parseInt(time.split(':')[0]);
+                return hour >= 8 && hour < 12;
+              });
+              break;
+            case 'evening':
+              matchesQuickFilter = appointment.timeSlots.some(time => {
+                const hour = parseInt(time.split(':')[0]);
+                return hour >= 16 && hour < 20;
+              });
+              break;
+          }
+        }
+        
+        return matchesSearch && matchesSpecialty && matchesDate && matchesQuickFilter && appointment.timeSlots.length > 0;
+      });
+      
+      renderAppointments(filteredAppointments);
+    }
+
+    // Функция для обновления статистики
+    function updateStatistics() {
+      const today = new Date().toISOString().split('T')[0];
+      const nextWeek = new Date(Date.now() + 7 * 86400000).toISOString().split('T')[0];
+      
+      const todaySlots = appointmentsData
+        .filter(a => a.date === today)
+        .reduce((sum, a) => sum + a.timeSlots.length, 0);
+      
+      const availableDoctors = new Set(
+        appointmentsData
+          .filter(a => a.timeSlots.length > 0)
+          .map(a => a.doctorId)
+      ).size;
+      
+      const nextWeekSlots = appointmentsData
+        .filter(a => a.date <= nextWeek && a.date >= today)
+        .reduce((sum, a) => sum + a.timeSlots.length, 0);
+      
+      document.getElementById('totalSlots').textContent = todaySlots;
+      document.getElementById('availableDoctors').textContent = availableDoctors;
+      document.getElementById('nextWeekSlots').textContent = nextWeekSlots;
+    }
+
+    // Функция для генерации календаря
+    function generateCalendar() {
+      const calendarGrid = document.getElementById('calendarGrid');
+      const currentMonthElement = document.getElementById('currentMonth');
+      
+      // Очищаем календарь
+      calendarGrid.innerHTML = '';
+      
+      // Устанавливаем заголовок месяца
+      const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+        "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+      currentMonthElement.textContent = `${monthNames[currentState.currentMonth]} ${currentState.currentYear}`;
+      
+      // Добавляем заголовки дней недели
+      const dayNames = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+      dayNames.forEach(day => {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'calendar-day';
+        dayElement.textContent = day;
+        calendarGrid.appendChild(dayElement);
+      });
+      
+      // Получаем первый день месяца и количество дней в месяце
+      const firstDay = new Date(currentState.currentYear, currentState.currentMonth, 1);
+      const lastDay = new Date(currentState.currentYear, currentState.currentMonth + 1, 0);
+      const daysInMonth = lastDay.getDate();
+      
+      // Получаем день недели первого дня месяца (0 - воскресенье, 1 - понедельник, ...)
+      let firstDayOfWeek = firstDay.getDay();
+      if (firstDayOfWeek === 0) firstDayOfWeek = 7; // Воскресенье становится 7
+      
+      // Добавляем пустые ячейки для дней предыдущего месяца
+      for (let i = 1; i < firstDayOfWeek; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'calendar-date disabled';
+        emptyCell.textContent = '';
+        calendarGrid.appendChild(emptyCell);
+      }
+      
+      // Добавляем дни текущего месяца
+      const today = new Date().toISOString().split('T')[0];
+      
+      for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(currentState.currentYear, currentState.currentMonth, day);
+        const dateString = date.toISOString().split('T')[0];
+        const dateElement = document.createElement('div');
+        dateElement.className = 'calendar-date';
+        dateElement.textContent = day;
+        
+        // Проверяем, есть ли приемы в эту дату
+        const hasAppointments = appointmentsData.some(a => a.date === dateString && a.timeSlots.length > 0);
+        
+        if (dateString < today) {
+          dateElement.classList.add('disabled');
+        } else {
+          if (hasAppointments) {
+            dateElement.classList.add('has-slots');
+          }
+          
+          dateElement.addEventListener('click', () => {
+            document.getElementById('dateFilter').value = dateString;
+            currentState.selectedDate = dateString;
+            filterAppointments();
+            
+            // Снимаем выделение с предыдущей выбранной даты
+            document.querySelectorAll('.calendar-date.selected').forEach(el => {
+              el.classList.remove('selected');
+            });
+            
+            // Выделяем новую дату
+            dateElement.classList.add('selected');
+          });
+          
+          // Если это выбранная дата, выделяем ее
+          if (dateString === currentState.selectedDate) {
+            dateElement.classList.add('selected');
+          }
+        }
+        
+        calendarGrid.appendChild(dateElement);
+      }
+    }
+
+    // Инициализация при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function() {
+      const backToTopButton = document.getElementById('backToTop');
+      
+      // Устанавливаем сегодняшнюю дату по умолчанию
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('dateFilter').value = today;
+      currentState.selectedDate = today;
+      
+      // Показать/скрыть кнопку при прокрутке
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.add('visible');
+        } else {
+          backToTopButton.classList.remove('visible');
+        }
+      });
+      
+      // Прокрутка к верху страницы при клике
+      backToTopButton.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+
+      // Поиск и фильтрация
+      document.getElementById('searchInput').addEventListener('input', filterAppointments);
+      document.getElementById('specialtyFilter').addEventListener('change', filterAppointments);
+      document.getElementById('dateFilter').addEventListener('change', function() {
+        currentState.selectedDate = this.value;
+        filterAppointments();
+      });
+
+      // Быстрые фильтры
+      document.querySelectorAll('.filter-tag').forEach(tag => {
+        tag.addEventListener('click', function() {
+          document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          filterAppointments();
+        });
+      });
+
+      // Навигация по месяцам в календаре
+      document.getElementById('prevMonth').addEventListener('click', function() {
+        currentState.currentMonth--;
+        if (currentState.currentMonth < 0) {
+          currentState.currentMonth = 11;
+          currentState.currentYear--;
+        }
+        generateCalendar();
+      });
+
+      document.getElementById('nextMonth').addEventListener('click', function() {
+        currentState.currentMonth++;
+        if (currentState.currentMonth > 11) {
+          currentState.currentMonth = 0;
+          currentState.currentYear++;
+        }
+        generateCalendar();
+      });
+
+      // Первоначальная загрузка
+      generateCalendar();
+      updateStatistics();
+      filterAppointments();
+    });
+  </script>
+</body>
+</html>

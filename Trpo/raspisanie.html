@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Городская поликлиника №26 — Расписание</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 50%, #80deea 100%);
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .schedule-page {
+      width: 100%;
+      max-width: 1200px;
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .page-header {
+      background: linear-gradient(to right, #00796b, #004d40);
+      color: white;
+      padding: 40px 40px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transform: translate(30%, -30%);
+    }
+
+    .page-header::after {
+      content: "";
+      position: absolute;
+      bottom: -50px;
+      left: -50px;
+      width: 150px;
+      height: 150px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 700px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .content-container {
+      padding: 40px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 30px;
+      background: #f8fdff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 300px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 14px 20px 14px 50px;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 1rem;
+      background: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: #00796b;
+      box-shadow: 0 2px 10px rgba(0, 121, 107, 0.2);
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #00796b;
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .filter-select {
+      padding: 14px 20px;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      background: white;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      min-width: 180px;
+    }
+
+    .filter-select:focus {
+      outline: none;
+      border-color: #00796b;
+    }
+
+    .schedule-table-container {
+      overflow-x: auto;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+    }
+
+    thead {
+      background: linear-gradient(to right, #00796b, #004d40);
+      color: white;
+    }
+
+    th {
+      padding: 18px 15px;
+      text-align: left;
+      font-weight: 600;
+      position: relative;
+    }
+
+    th:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 20%;
+      height: 60%;
+      width: 1px;
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    tbody tr {
+      border-bottom: 1px solid #f0f0f0;
+      transition: all 0.3s ease;
+    }
+
+    tbody tr:hover {
+      background-color: #f8fdff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    td {
+      padding: 16px 15px;
+      color: #444;
+    }
+
+    .doctor-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .doctor-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(to right, #00796b, #004d40);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+
+    .specialty-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      background: #e0f2f1;
+      color: #00796b;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .room-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .room-info i {
+      color: #00796b;
+    }
+
+    .days-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .day-badge {
+      padding: 4px 8px;
+      background: #f5f5f5;
+      border-radius: 6px;
+      font-size: 0.8rem;
+    }
+
+    .time-slot {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: #e8f5e9;
+      color: #2e7d32;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+
+    .time-slot i {
+      font-size: 0.9rem;
+    }
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 25px;
+      background: linear-gradient(to right, #00796b, #004d40);
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 121, 107, 0.3);
+      margin-top: 30px;
+    }
+
+    .back-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 121, 107, 0.4);
+    }
+
+    .info-note {
+      background: #fff8e1;
+      border-left: 4px solid #ffc107;
+      padding: 15px 20px;
+      margin: 25px 0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .info-note i {
+      color: #ff9800;
+      font-size: 1.2rem;
+    }
+
+    .info-note p {
+      margin: 0;
+      color: #5d4037;
+    }
+
+    @media (max-width: 768px) {
+      .page-header {
+        padding: 30px 20px 20px;
+      }
+      
+      .page-header h1 {
+        font-size: 2rem;
+      }
+      
+      .content-container {
+        padding: 20px;
+      }
+      
+      .controls {
+        flex-direction: column;
+      }
+      
+      .search-box {
+        min-width: 100%;
+      }
+      
+      th, td {
+        padding: 12px 10px;
+      }
+      
+      .doctor-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="schedule-page">
+    <div class="page-header">
+      <h1>Расписание приёма врачей</h1>
+      <p>Актуальное расписание работы специалистов поликлиники. Для записи на приём обратитесь в регистратуру.</p>
+    </div>
+
+    <div class="content-container">
+      <div class="controls">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="searchInput" placeholder="Поиск по фамилии врача или специальности...">
+        </div>
+        
+        <div class="filter-group">
+          <select class="filter-select" id="specialtyFilter">
+            <option value="">Все специальности</option>
+            <option value="Терапевт">Терапевт</option>
+            <option value="Педиатр">Педиатр</option>
+            <option value="Кардиолог">Кардиолог</option>
+            <option value="Хирург">Хирург</option>
+            <option value="Невролог">Невролог</option>
+            <option value="Офтальмолог">Офтальмолог</option>
+          </select>
+          
+          <select class="filter-select" id="dayFilter">
+            <option value="">Все дни</option>
+            <option value="Пн">Понедельник</option>
+            <option value="Вт">Вторник</option>
+            <option value="Ср">Среда</option>
+            <option value="Чт">Четверг</option>
+            <option value="Пт">Пятница</option>
+            <option value="Сб">Суббота</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="info-note">
+        <i class="fas fa-info-circle"></i>
+        <p>Расписание может изменяться. Уточняйте время приёма у администратора.</p>
+      </div>
+
+      <div class="schedule-table-container">
+        <table id="scheduleTable">
+          <thead>
+            <tr>
+              <th>ФИО врача</th>
+              <th>Специальность</th>
+              <th>Кабинет</th>
+              <th>Дни приёма</th>
+              <th>Время приёма</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="doctor-info">
+                  <div class="doctor-avatar">АА</div>
+                  <div>Абашин А. В.</div>
+                </div>
+              </td>
+              <td><span class="specialty-badge">Терапевт</span></td>
+              <td>
+                <div class="room-info">
+                  <i class="fas fa-door-open"></i>
+                  <span>101</span>
+                </div>
+              </td>
+              <td>
+                <div class="days-info">
+                  <span class="day-badge">Пн</span>
+                  <span class="day-badge">Ср</span>
+                  <span class="day-badge">Пт</span>
+                </div>
+              </td>
+              <td><span class="time-slot"><i class="far fa-clock"></i> 08:00 – 14:00</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="doctor-info">
+                  <div class="doctor-avatar">АД</div>
+                  <div>Адинец Д. О.</div>
+                </div>
+              </td>
+              <td><span class="specialty-badge">Педиатр</span></td>
+              <td>
+                <div class="room-info">
+                  <i class="fas fa-door-open"></i>
+                  <span>202</span>
+                </div>
+              </td>
+              <td>
+                <div class="days-info">
+                  <span class="day-badge">Вт</span>
+                  <span class="day-badge">Чт</span>
+                </div>
+              </td>
+              <td><span class="time-slot"><i class="far fa-clock"></i> 09:00 – 15:00</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="doctor-info">
+                  <div class="doctor-avatar">ГМ</div>
+                  <div>Грецкий М. Г.</div>
+                </div>
+              </td>
+              <td><span class="specialty-badge">Кардиолог</span></td>
+              <td>
+                <div class="room-info">
+                  <i class="fas fa-door-open"></i>
+                  <span>305</span>
+                </div>
+              </td>
+              <td>
+                <div class="days-info">
+                  <span class="day-badge">Пн</span>
+                  <span class="day-badge">Вт</span>
+                  <span class="day-badge">Ср</span>
+                  <span class="day-badge">Чт</span>
+                  <span class="day-badge">Пт</span>
+                </div>
+              </td>
+              <td><span class="time-slot"><i class="far fa-clock"></i> 10:00 – 16:00</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="doctor-info">
+                  <div class="doctor-avatar">КЕ</div>
+                  <div>Козаченко Е. Н.</div>
+                </div>
+              </td>
+              <td><span class="specialty-badge">Хирург</span></td>
+              <td>
+                <div class="room-info">
+                  <i class="fas fa-door-open"></i>
+                  <span>410</span>
+                </div>
+              </td>
+              <td>
+                <div class="days-info">
+                  <span class="day-badge">Ср</span>
+                  <span class="day-badge">Пт</span>
+                </div>
+              </td>
+              <td><span class="time-slot"><i class="far fa-clock"></i> 12:00 – 18:00</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="doctor-info">
+                  <div class="doctor-avatar">СИ</div>
+                  <div>Семёнова И. П.</div>
+                </div>
+              </td>
+              <td><span class="specialty-badge">Невролог</span></td>
+              <td>
+                <div class="room-info">
+                  <i class="fas fa-door-open"></i>
+                  <span>215</span>
+                </div>
+              </td>
+              <td>
+                <div class="days-info">
+                  <span class="day-badge">Пн</span>
+                  <span class="day-badge">Вт</span>
+                  <span class="day-badge">Чт</span>
+                </div>
+              </td>
+              <td><span class="time-slot"><i class="far fa-clock"></i> 09:00 – 14:00</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="doctor-info">
+                  <div class="doctor-avatar">ПО</div>
+                  <div>Петров О. С.</div>
+                </div>
+              </td>
+              <td><span class="specialty-badge">Офтальмолог</span></td>
+              <td>
+                <div class="room-info">
+                  <i class="fas fa-door-open"></i>
+                  <span>312</span>
+                </div>
+              </td>
+              <td>
+                <div class="days-info">
+                  <span class="day-badge">Вт</span>
+                  <span class="day-badge">Ср</span>
+                  <span class="day-badge">Пт</span>
+                </div>
+              </td>
+              <td><span class="time-slot"><i class="far fa-clock"></i> 10:00 – 16:00</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <a href="main.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Вернуться на главную
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Функция для фильтрации таблицы
+    function filterTable() {
+      const searchInput = document.getElementById('searchInput');
+      const specialtyFilter = document.getElementById('specialtyFilter');
+      const dayFilter = document.getElementById('dayFilter');
+      const table = document.getElementById('scheduleTable');
+      const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+      
+      const searchText = searchInput.value.toLowerCase();
+      const specialtyValue = specialtyFilter.value;
+      const dayValue = dayFilter.value;
+      
+      for (let i = 0; i < rows.length; i++) {
+        const doctorName = rows[i].getElementsByTagName('td')[0].textContent.toLowerCase();
+        const specialty = rows[i].getElementsByTagName('td')[1].textContent;
+        const days = rows[i].getElementsByTagName('td')[3].textContent;
+        
+        const nameMatch = doctorName.includes(searchText);
+        const specialtyMatch = specialtyValue === '' || specialty === specialtyValue;
+        const dayMatch = dayValue === '' || days.includes(dayValue);
+        
+        if (nameMatch && specialtyMatch && dayMatch) {
+          rows[i].style.display = '';
+        } else {
+          rows[i].style.display = 'none';
+        }
+      }
+    }
+    
+    // Добавляем обработчики событий для фильтров
+    document.getElementById('searchInput').addEventListener('input', filterTable);
+    document.getElementById('specialtyFilter').addEventListener('change', filterTable);
+    document.getElementById('dayFilter').addEventListener('change', filterTable);
+  </script>
+</body>
+</html>

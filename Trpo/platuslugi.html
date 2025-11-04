@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Городская поликлиника №26 — Платные услуги</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 50%, #80deea 100%);
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .services-page {
+      width: 100%;
+      max-width: 1200px;
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .page-header {
+      background: linear-gradient(to right, #00796b, #004d40);
+      color: white;
+      padding: 40px 40px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transform: translate(30%, -30%);
+    }
+
+    .page-header::after {
+      content: "";
+      position: absolute;
+      bottom: -50px;
+      left: -50px;
+      width: 150px;
+      height: 150px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 700px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .content-container {
+      padding: 40px;
+    }
+
+    .intro-text {
+      font-size: 1.1rem;
+      color: #444;
+      margin-bottom: 40px;
+      text-align: center;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 12px;
+      padding: 0;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.4s ease;
+      overflow: hidden;
+      border-top: 4px solid #00796b;
+      position: relative;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #00796b, #004d40);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 25px auto 20px;
+      color: white;
+      font-size: 1.8rem;
+      box-shadow: 0 5px 15px rgba(0, 121, 107, 0.3);
+    }
+
+    .service-content {
+      padding: 0 25px 25px;
+      text-align: center;
+    }
+
+    .service-card h3 {
+      color: #00796b;
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+
+    .service-card p {
+      color: #555;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+
+    .price-tag {
+      display: inline-block;
+      padding: 10px 20px;
+      background: linear-gradient(to right, #e8f5e9, #c8e6c9);
+      color: #2e7d32;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0, 121, 107, 0.03), rgba(0, 77, 64, 0.05));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .service-card:hover::before {
+      opacity: 1;
+    }
+
+    .benefits-section {
+      background: linear-gradient(to right, #e8f5e9, #c8e6c9);
+      border-radius: 12px;
+      padding: 40px;
+      margin: 50px 0 30px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .benefits-title {
+      color: #2e7d32;
+      margin-bottom: 30px;
+      font-size: 1.5rem;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .benefit-item {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .benefit-icon {
+      width: 60px;
+      height: 60px;
+      background: #00796b;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .benefit-item h4 {
+      color: #2e7d32;
+      margin-bottom: 10px;
+    }
+
+    .benefit-item p {
+      color: #555;
+      font-size: 0.9rem;
+    }
+
+    .contact-info {
+      background: #f8fdff;
+      border-radius: 12px;
+      padding: 30px;
+      margin: 40px 0;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+
+    .contact-title {
+      color: #00796b;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #555;
+    }
+
+    .contact-item i {
+      color: #00796b;
+      font-size: 1.2rem;
+    }
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 25px;
+      background: linear-gradient(to right, #00796b, #004d40);
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 121, 107, 0.3);
+      margin-top: 20px;
+    }
+
+    .back-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 121, 107, 0.4);
+    }
+
+    .payment-methods {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .payment-method {
+      padding: 8px 15px;
+      background: white;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      color: #555;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    @media (max-width: 768px) {
+      .page-header {
+        padding: 30px 20px 20px;
+      }
+      
+      .page-header h1 {
+        font-size: 2rem;
+      }
+      
+      .content-container {
+        padding: 20px;
+      }
+      
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .benefits-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .contact-details {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="services-page">
+    <div class="page-header">
+      <h1>Платные медицинские услуги</h1>
+      <p>Доступные медицинские услуги без направления от врача. Быстро, качественно и профессионально.</p>
+    </div>
+
+    <div class="content-container">
+      <p class="intro-text">Поликлиника №26 предлагает ряд платных медицинских услуг, доступных без направления. Все процедуры проводятся квалифицированными специалистами с использованием современного оборудования.</p>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-procedures"></i>
+          </div>
+          <div class="service-content">
+            <h3>УЗИ органов брюшной полости</h3>
+            <p>Диагностика состояния печени, почек, поджелудочной железы и других органов. Безболезненная процедура с немедленными результатами.</p>
+            <div class="price-tag">35 BYN</div>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-heartbeat"></i>
+          </div>
+          <div class="service-content">
+            <h3>Консультация кардиолога</h3>
+            <p>Проверка сердечного ритма, ЭКГ, рекомендации по лечению и профилактике. Комплексное обследование сердечно-сосудистой системы.</p>
+            <div class="price-tag">40 BYN</div>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-hands"></i>
+          </div>
+          <div class="service-content">
+            <h3>Массаж лечебный (1 сеанс)</h3>
+            <p>Снятие мышечного напряжения, улучшение кровообращения, восстановление после травм. Индивидуальный подход к каждому пациенту.</p>
+            <div class="price-tag">25 BYN</div>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-vial"></i>
+          </div>
+          <div class="service-content">
+            <h3>Анализ крови (общий)</h3>
+            <p>Быстрая диагностика общего состояния организма, выявление воспалений и нарушений. Результаты в течение 2 часов.</p>
+            <div class="price-tag">15 BYN</div>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-car"></i>
+          </div>
+          <div class="service-content">
+            <h3>Справка для ГАИ</h3>
+            <p>Медицинское освидетельствование для получения водительского удостоверения. Оформление в день обращения.</p>
+            <div class="price-tag">30 BYN</div>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-lungs"></i>
+          </div>
+          <div class="service-content">
+            <h3>Флюорография</h3>
+            <p>Обследование органов грудной клетки для выявления патологий дыхательной системы. Цифровая технология с минимальной дозой облучения.</p>
+            <div class="price-tag">20 BYN</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="benefits-section">
+        <h3 class="benefits-title">Преимущества наших платных услуг</h3>
+        <div class="benefits-grid">
+          <div class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <h4>Экономия времени</h4>
+            <p>Минимальное время ожидания и быстрое получение результатов</p>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-user-md"></i>
+            </div>
+            <h4>Квалификация</h4>
+            <p>Все процедуры выполняются опытными специалистами</p>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h4>Качество</h4>
+            <p>Используем современное оборудование и материалы</p>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-calendar-check"></i>
+            </div>
+            <h4>Удобство</h4>
+            <p>Гибкий график записи и комфортные условия</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-info">
+        <h3 class="contact-title">Как записаться на платные услуги?</h3>
+        <p>Для записи на платные услуги обращайтесь в регистратуру или по телефону</p>
+        
+        <div class="contact-details">
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <span>+375-25-751-77-10</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>г. Минск, ул. Колесникова 3</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-clock"></i>
+            <span>Пн-Пт: 8:00-20:00, Сб: 9:00-15:00</span>
+          </div>
+        </div>
+        
+        <div class="payment-methods">
+          <div class="payment-method">Наличный расчёт</div>
+          <div class="payment-method">Банковская карта</div>
+          <div class="payment-method">ЕРИП</div>
+        </div>
+      </div>
+
+      <a href="main.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Вернуться на главную
+      </a>
+    </div>
+  </div>
+</body>
+</html>
