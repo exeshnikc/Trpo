@@ -5,484 +5,217 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Городская поликлиника №26 — Об учреждении</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Добавляем стили Leaflet для карты -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: "Segoe UI", system-ui, sans-serif;
-      background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 50%, #80deea 100%);
-      color: #333;
-      line-height: 1.6;
-      min-height: 100vh;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-    }
-
-    .about-page {
-      width: 100%;
-      max-width: 1100px;
-      background-color: white;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .logo-header {
-      display: flex;
-      align-items: center;
-      padding: 15px 40px;
-      background: white;
-      border-bottom: 1px solid #e0f2f1;
-    }
-
-    .logo-link {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      color: #00796b;
-      transition: all 0.3s ease;
-    }
-
-    .logo-link:hover {
-      transform: translateY(-2px);
-      color: #004d40;
-    }
-
-    .logo-icon {
-      font-size: 2.2rem;
-      margin-right: 12px;
-    }
-
-    .logo-text {
-      font-size: 1.4rem;
-      font-weight: 700;
-    }
-
-    .page-header {
-      background: linear-gradient(to right, #00796b, #004d40);
-      color: white;
-      padding: 40px 40px 30px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .page-header::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 200px;
-      height: 200px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      transform: translate(30%, -30%);
-    }
-
-    .page-header::after {
-      content: "";
-      position: absolute;
-      bottom: -50px;
-      left: -50px;
-      width: 150px;
-      height: 150px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-    }
-
-    .page-header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .page-header p {
-      font-size: 1.1rem;
-      opacity: 0.9;
-      max-width: 700px;
-      position: relative;
-      z-index: 1;
-      color: white; /* Белый цвет текста */
-    }
-
-    .content-container {
-      padding: 40px;
-    }
-
-    .mission-section {
-      background: linear-gradient(to right, #e8f5e9, #c8e6c9);
-      border-left: 5px solid #4caf50;
-      padding: 30px;
-      border-radius: 10px;
-      margin: 30px 0;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    }
-
-    .mission-section h2 {
-      color: #2e7d32;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .mission-section h2 i {
-      font-size: 1.5rem;
-    }
-
-    h2 {
-      color: #00796b;
-      margin: 30px 0 15px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid #e0f2f1;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    h2 i {
-      font-size: 1.3rem;
-    }
-
-    p {
-      margin-bottom: 16px;
-      color: #444;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-      margin: 25px 0;
-    }
-
-    .service-card {
-      background: white;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border-top: 4px solid #00796b;
-    }
-
-    .service-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .service-card h3 {
-      color: #00796b;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .service-card p {
-      color: #555;
-      font-size: 0.95rem;
-    }
-
-    .history-section {
-      background: #f9f9f9;
-      padding: 25px;
-      border-radius: 10px;
-      margin: 30px 0;
-      position: relative;
-    }
-
-    .history-section::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 5px;
-      height: 100%;
-      background: linear-gradient(to bottom, #00796b, #004d40);
-      border-radius: 5px 0 0 5px;
-    }
-
-    .contact-info {
-      background: linear-gradient(to right, #e0f2f1, #b2dfdb);
-      padding: 30px;
-      border-radius: 10px;
-      margin: 40px 0 30px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-    }
-
-    .contact-details {
-      flex: 1;
-      min-width: 250px;
-    }
-
-    .contact-details h3 {
-      color: #004d40;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 15px;
-      gap: 12px;
-    }
-
-    .contact-item i {
-      width: 40px;
-      height: 40px;
-      background: #00796b;
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .map-container {
-      flex: 1;
-      min-width: 250px;
-      height: 300px;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .back-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 25px;
-      background: linear-gradient(to right, #00796b, #004d40);
-      color: white;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 10px rgba(0, 121, 107, 0.3);
-    }
-
-    .back-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(0, 121, 107, 0.4);
-    }
-
-    .stats-container {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin: 40px 0;
-    }
-
-    .stat-item {
-      text-align: center;
-      flex: 1;
-      min-width: 150px;
-    }
-
-    .stat-number {
-      font-size: 2.5rem;
-      font-weight: bold;
-      color: #00796b;
-      margin-bottom: 5px;
-    }
-
-    .stat-label {
-      color: #555;
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 768px) {
-      .logo-header {
-        padding: 15px 20px;
-      }
-      
-      .logo-text {
-        font-size: 1.2rem;
-      }
-      
-      .page-header {
-        padding: 30px 20px 20px;
-      }
-      
-      .page-header h1 {
-        font-size: 2rem;
-      }
-      
-      .content-container {
-        padding: 20px;
-      }
-      
-      .services-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style2.css">
 </head>
 <body>
-  <div class="about-page">
-    <!-- Логотип с ссылкой на главную страницу -->
-    <div class="logo-header">
-      <a href="main.html" class="logo-link">
-        <i class="fas fa-hospital logo-icon"></i>
-        <span class="logo-text">Поликлиника №26</span>
+  <!-- Particles Background -->
+  <div class="particles-container" id="particles"></div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="logo">
+      <a href="main.html" style="display: flex; align-items: center; gap: 15px; text-decoration: none;">
+        <div class="logo-icon">
+          <i class="fas fa-hospital-alt"></i>
+        </div>
+        <div>
+          <div class="logo-text">Поликлиника №26</div>
+          <div class="logo-subtitle">Медицинский центр высшей категории</div>
+        </div>
       </a>
     </div>
-
-    <div class="page-header">
-      <h1>О городской поликлинике №26</h1>
-      <p>Современное медицинское учреждение, предоставляющее широкий спектр амбулаторных услуг жителям Минска с 1985 года.</p>
-    </div>
-
-    <div class="content-container">
-      <p>Городская поликлиника №26 — это современное медицинское учреждение, предоставляющее широкий спектр амбулаторных услуг жителям Минска. Мы стремимся обеспечить качественную, доступную и своевременную медицинскую помощь каждому пациенту.</p>
-
-      <div class="mission-section">
-        <h2><i class="fas fa-heartbeat"></i> Наша миссия</h2>
-        <p>Забота о здоровье населения через профессионализм, уважение и инновации. Мы объединяем опыт врачей, современные технологии и индивидуальный подход к каждому пациенту.</p>
-      </div>
-
-      <div class="stats-container">
-        <div class="stat-item">
-          <div class="stat-number">35+</div>
-          <div class="stat-label">Лет опыта</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">50+</div>
-          <div class="stat-label">Специалистов</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">25k+</div>
-          <div class="stat-label">Пациентов в год</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">15+</div>
-          <div class="stat-label">Отделений</div>
-        </div>
-      </div>
-
-      <h2><i class="fas fa-stethoscope"></i> Основные направления деятельности</h2>
+    
+    <div class="nav-container">
+      <nav class="nav">
+        <a href="main.html"><i class="fas fa-home"></i> Главная</a>
+        <a href="information.html" class="active"><i class="fas fa-info-circle"></i> Об учреждении</a>
+        <a href="raspisanie.html"><i class="fas fa-calendar-alt"></i> Расписание</a>
+        <a href="doing.html"><i class="fas fa-briefcase-medical"></i> Деятельность</a>
+        <a href="platuslugi.html"><i class="fas fa-file-invoice-dollar"></i> Платные услуги</a>
+        <a href="contacts.html"><i class="fas fa-address-book"></i> Контакты</a>
+      </nav>
       
-      <div class="services-grid">
-        <div class="service-card">
-          <h3><i class="fas fa-user-md"></i> Первичная помощь</h3>
-          <p>Комплексное медицинское обслуживание на первичном уровне с индивидуальным подходом к каждому пациенту.</p>
-        </div>
-        
-        <div class="service-card">
-          <h3><i class="fas fa-procedures"></i> Профилактика</h3>
-          <p>Профилактические осмотры и диспансеризация для раннего выявления заболеваний.</p>
-        </div>
-        
-        <div class="service-card">
-          <h3><i class="fas fa-microscope"></i> Диагностика</h3>
-          <p>Современные лабораторные и инструментальные исследования для точной диагностики.</p>
-        </div>
-        
-        <div class="service-card">
-          <h3><i class="fas fa-syringe"></i> Вакцинация</h3>
-          <p>Плановые и сезонные прививки для детей и взрослых по национальному календарю.</p>
-        </div>
-        
-        <div class="service-card">
-          <h3><i class="fas fa-user-friends"></i> Консультации</h3>
-          <p>Консультации узких специалистов с применением современных протоколов лечения.</p>
-        </div>
-        
-        <div class="service-card">
-          <h3><i class="fas fa-home"></i> Выезд на дом</h3>
-          <p>Выезд врача на дом для пациентов, которые не могут посетить поликлинику.</p>
-        </div>
-      </div>
-
-      <h2><i class="fas fa-history"></i> История учреждения</h2>
-      
-      <div class="history-section">
-        <p>Поликлиника была основана в 1985 году и с тех пор прошла путь от небольшого медпункта до многопрофильного центра с современным оборудованием и квалифицированным персоналом. Мы гордимся своей историей и продолжаем развиваться ради здоровья наших пациентов.</p>
-        <p>За годы работы мы внедрили электронную систему записи, современные диагностические комплексы и расширили спектр предоставляемых услуг, оставаясь верными принципам доступности и качества медицинской помощи.</p>
-      </div>
-
-      <div class="contact-info">
-        <div class="contact-details">
-          <h3><i class="fas fa-map-marker-alt"></i> Контактная информация</h3>
-          
-          <div class="contact-item">
-            <i class="fas fa-map-marker-alt"></i>
-            <div>
-              <strong>Адрес:</strong><br>
-              г. Минск, ул. Колесникова 3
-            </div>
-          </div>
-          
-          <div class="contact-item">
-            <i class="fas fa-phone"></i>
-            <div>
-              <strong>Телефон:</strong><br>
-              +375-25-751-77-10
-            </div>
-          </div>
-          
-          <div class="contact-item">
-            <i class="fas fa-envelope"></i>
-            <div>
-              <strong>Email:</strong><br>
-              info26@gmail.com
-            </div>
-          </div>
-          
-          <div class="contact-item">
-            <i class="fas fa-clock"></i>
-            <div>
-              <strong>Режим работы:</strong><br>
-              Пн-Пт: 8:00-20:00, Сб: 9:00-15:00
-            </div>
-          </div>
-        </div>
-        
-        <div id="map" class="map-container"></div>
-      </div>
-
-      <a href="main.html" class="back-button">
-        <i class="fas fa-arrow-left"></i> Вернуться на главную
+      <a href="page1.html" class="login-button">
+        <i class="fas fa-user"></i> Вход для пациентов
       </a>
+      
+      <div class="burger-menu" id="burgerMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
+  </header>
+
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="main.html"><i class="fas fa-home"></i> Главная</a>
+    <a href="information.html" class="active"><i class="fas fa-info-circle"></i> Об учреждении</a>
+    <a href="raspisanie.html"><i class="fas fa-calendar-alt"></i> Расписание</a>
+    <a href="doing.html"><i class="fas fa-briefcase-medical"></i> Деятельность</a>
+    <a href="platuslugi.html"><i class="fas fa-file-invoice-dollar"></i> Платные услуги</a>
+    <a href="contacts.html"><i class="fas fa-address-book"></i> Контакты</a>
+    <a href="page1.html" class="mobile-login-button">
+      <i class="fas fa-user"></i> Вход для пациентов
+    </a>
+  </div>
+  
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Hero Section -->
+  <section class="about-hero">
+    <div class="about-hero-content">
+      <h1 class="about-hero-title">О нашей поликлинике</h1>
+      <p class="about-hero-subtitle">
+        Современное медицинское учреждение, предоставляющее широкий спектр амбулаторных услуг жителям Минска с 1985 года
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="content-container">
+    <p style="font-size: 1.2rem; color: var(--gray-light); line-height: 1.8; text-align: center; margin-bottom: 60px;">
+      Городская поликлиника №26 — это современное медицинское учреждение, предоставляющее широкий спектр амбулаторных услуг. 
+      Мы стремимся обеспечить качественную, доступную и своевременную медицинскую помощь каждому пациенту.
+    </p>
+
+    <!-- Mission Section -->
+    <div class="mission-section">
+      <h2><i class="fas fa-heartbeat"></i> Наша миссия</h2>
+      <p>
+        Забота о здоровье населения через профессионализм, уважение и инновации. Мы объединяем опыт врачей, 
+        современные технологии и индивидуальный подход к каждому пациенту для достижения наилучших результатов лечения.
+      </p>
+    </div>
+
+    <!-- Statistics -->
+    <h2 class="section-header"><i class="fas fa-chart-line"></i> Мы в цифрах</h2>
+    
+    <div class="stats-container">
+      <div class="stat-item">
+        <span class="stat-number">35+</span>
+        <div class="stat-label">Лет успешной работы</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">50+</span>
+        <div class="stat-label">Квалифицированных специалистов</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">25k+</span>
+        <div class="stat-label">Пациентов ежегодно</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">15+</span>
+        <div class="stat-label">Медицинских отделений</div>
+      </div>
+    </div>
+
+    <!-- Services -->
+    <h2 class="section-header"><i class="fas fa-stethoscope"></i> Основные направления</h2>
+    
+    <div class="services-grid">
+      <div class="service-card">
+        <h3><i class="fas fa-user-md"></i> Первичная помощь</h3>
+        <p>Комплексное медицинское обслуживание на первичном уровне с индивидуальным подходом к каждому пациенту</p>
+      </div>
+      
+      <div class="service-card">
+        <h3><i class="fas fa-procedures"></i> Профилактика</h3>
+        <p>Профилактические осмотры и диспансеризация для раннего выявления заболеваний</p>
+      </div>
+      
+      <div class="service-card">
+        <h3><i class="fas fa-microscope"></i> Диагностика</h3>
+        <p>Современные лабораторные и инструментальные исследования для точной диагностики</p>
+      </div>
+      
+      <div class="service-card">
+        <h3><i class="fas fa-syringe"></i> Вакцинация</h3>
+        <p>Плановые и сезонные прививки для детей и взрослых по национальному календарю</p>
+      </div>
+      
+      <div class="service-card">
+        <h3><i class="fas fa-user-friends"></i> Консультации</h3>
+        <p>Консультации узких специалистов с применением современных протоколов лечения</p>
+      </div>
+      
+      <div class="service-card">
+        <h3><i class="fas fa-home"></i> Выезд на дом</h3>
+        <p>Выезд врача на дом для пациентов, которые не могут посетить поликлинику</p>
+      </div>
+    </div>
+
+    <!-- History -->
+    <h2 class="section-header"><i class="fas fa-history"></i> Наша история</h2>
+    
+    <div class="history-section">
+      <p>
+        Поликлиника была основана в 1985 году и с тех пор прошла путь от небольшого медпункта до многопрофильного центра 
+        с современным оборудованием и квалифицированным персоналом. Мы гордимся своей историей и продолжаем развиваться 
+        ради здоровья наших пациентов.
+      </p>
+      <p>
+        За годы работы мы внедрили электронную систему записи, современные диагностические комплексы и расширили спектр 
+        предоставляемых услуг, оставаясь верными принципам доступности и качества медицинской помощи.
+      </p>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="contact-info">
+      <div class="contact-details">
+        <h3><i class="fas fa-map-marker-alt"></i> Контактная информация</h3>
+        
+        <div class="contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <div>
+            <strong>Адрес:</strong><br>
+            г. Минск, ул. Колесникова 3
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <i class="fas fa-phone"></i>
+          <div>
+            <strong>Телефон:</strong><br>
+            +375-25-751-77-10
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <div>
+            <strong>Email:</strong><br>
+            info26@gmail.com
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <i class="fas fa-clock"></i>
+          <div>
+            <strong>Режим работы:</strong><br>
+            Пн-Пт: 8:00-20:00<br>
+            Суббота: 9:00-15:00<br>
+            Воскресенье: выходной
+          </div>
+        </div>
+      </div>
+      
+      <div id="map" class="map-container"></div>
+    </div>
+
+    <a href="main.html" class="back-button">
+      <i class="fas fa-arrow-left"></i> Вернуться на главную
+    </a>
   </div>
 
-  <!-- Добавляем библиотеку Leaflet для работы с картами -->
+  <!-- Back to Top Button -->
+  <button class="back-to-top" id="backToTop">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    // Инициализация карты после загрузки страницы
-    document.addEventListener('DOMContentLoaded', function() {
-      // Координаты поликлиники (примерные координаты Минска)
-      const clinicCoords = [53.9023, 27.5619];
-      
-      // Создаем карту
-      const map = L.map('map').setView(clinicCoords, 15);
-      
-      // Добавляем слой карты OpenStreetMap
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      }).addTo(map);
-      
-      // Добавляем маркер поликлиники
-      const clinicMarker = L.marker(clinicCoords).addTo(map);
-      clinicMarker.bindPopup("<b>Городская поликлиника №26</b><br>ул. Колесникова 3").openPopup();
-    });
-  </script>
+  <script src="script2.js"></script>
 </body>
 </html>
